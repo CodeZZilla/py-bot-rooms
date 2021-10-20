@@ -15,6 +15,7 @@ sticker_start = 'CAACAgUAAxkBAAP-X0qNH1rpyoDqT7odr43p9nZntwkAAm8DAALpCsgDr86-2QK
 
 messages = json.load(open('static/MessagesConfig.json', encoding='utf-8'))
 cities = json.load(open('static/cities.json', encoding='utf-8'))
+services = json.load(open('static/services.json', encoding='utf-8'))
 count_users = 0
 
 
@@ -42,7 +43,7 @@ def callback_inline(call):
             user = api.updateCityForUser(chat_id, value)
             send_message_with_keyboard(chat_id,
                                        "Ти з нами вперше - тому тобі надано 2 дні тестової підписки \n З чим тобі допомогти?",
-                                       "service", cities, 1)
+                                       "service", services, 1)
 
 
 def send_message_with_keyboard(id_telegram, text, call_back_start, array_text, col):
