@@ -548,7 +548,6 @@ def filter_city(id_telegram, message_id, text, language, new_msg=False):
         bot.send_message(id_telegram, text, reply_markup=inline_keyboard)
 
 
-@async_dec()
 def filter_price(id_telegram, message_id, language, new_message):
     # if not new_message:
     #     bot.delete_message(id_telegram, message_id)
