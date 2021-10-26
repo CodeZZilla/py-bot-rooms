@@ -19,11 +19,6 @@ logging.basicConfig(filename='file.log',
 
 TELEGRAM_TOKEN = ''
 tranzzo_token = ''
-with open('tokens') as file:
-    arr = file.readlines()
-    arr = [line.rstrip() for line in arr]
-    TELEGRAM_TOKEN = arr[0].split(':')[1]
-    tranzzo_token = arr[1].split(':')[1]
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
