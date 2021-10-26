@@ -8,6 +8,7 @@ import api
 import status
 from threading import Thread
 import schedule
+from telebot.util import async_dec
 from telebot.types import InputMediaPhoto, LabeledPrice, ShippingOption
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -419,6 +420,7 @@ def callback_inline(call):
                 bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=reply_markup)
 
 
+@async_dec()
 def language_message(chat_id):
     inline_keyboard = InlineKeyboardMarkup()
     inline_keyboard.add(InlineKeyboardButton(text='Українська', callback_data='language:ua'))
@@ -426,6 +428,7 @@ def language_message(chat_id):
     bot.send_message(chat_id, 'Виберить мову\nChoose language', parse_mode="Markdown", reply_markup=inline_keyboard)
 
 
+@async_dec()
 def pay_message(id_telegram, user):
     inline_keyboard = InlineKeyboardMarkup()
     inline_keyboard.row(InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
@@ -434,6 +437,7 @@ def pay_message(id_telegram, user):
     bot.send_message(id_telegram, messages['pay_info'][user['language']], reply_markup=inline_keyboard)
 
 
+@async_dec()
 def menu_filters(telegram_id, user, flag_msg=False, message_id=0):
     city_user = ''
     for i in cities:
@@ -497,6 +501,7 @@ def filter_multi_select(reply_markup, value):
         return reply_markup
 
 
+@async_dec()
 def filter_type(id_telegram, text, language, reply=False, message=None):
     inline_keyboard = InlineKeyboardMarkup()
     inline_keyboard.add(InlineKeyboardButton(text=services[0][language], callback_data='service:' + services[0]['id']),
@@ -507,6 +512,7 @@ def filter_type(id_telegram, text, language, reply=False, message=None):
         bot.send_message(id_telegram, text, parse_mode="Markdown", reply_markup=inline_keyboard)
 
 
+@async_dec()
 def filter_type_details(id_telegram, message_id, language):
     inline_keyboard = InlineKeyboardMarkup()
     inline_keyboard.add(InlineKeyboardButton(text=services[2][language], callback_data='service:' + services[2]['id']))
@@ -516,6 +522,7 @@ def filter_type_details(id_telegram, message_id, language):
     bot.edit_message_reply_markup(id_telegram, message_id, reply_markup=inline_keyboard)
 
 
+@async_dec()
 def filter_city(id_telegram, message_id, text, language, new_msg=False):
     inline_keyboard = InlineKeyboardMarkup()
     for i in range(len(cities)):
@@ -528,6 +535,7 @@ def filter_city(id_telegram, message_id, text, language, new_msg=False):
         bot.send_message(id_telegram, text, reply_markup=inline_keyboard)
 
 
+@async_dec()
 def filter_price(id_telegram, message_id, language, new_message):
     # if not new_message:
     #     bot.delete_message(id_telegram, message_id)
@@ -536,6 +544,7 @@ def filter_price(id_telegram, message_id, language, new_message):
     bot.send_animation(id_telegram, prise_png, None, messages['filter_price'][language])
 
 
+@async_dec()
 def filter_regions(id_telegram, message_id, language, city, edit_flag=False):
     inline_keyboard = InlineKeyboardMarkup()
     regions_array = regions[city]['regions']
@@ -558,6 +567,7 @@ def filter_regions(id_telegram, message_id, language, city, edit_flag=False):
         bot.edit_message_reply_markup(id_telegram, message_id, reply_markup=inline_keyboard)
 
 
+@async_dec()
 def filter_metro(id_telegram, message_id, user, edit_flag=False):
     inline_keyboard = InlineKeyboardMarkup()
     regions_all = regions[user['city']]['regions']
@@ -591,6 +601,7 @@ def filter_metro(id_telegram, message_id, user, edit_flag=False):
         bot.edit_message_reply_markup(id_telegram, message_id, reply_markup=inline_keyboard)
 
 
+@async_dec()
 def start_next_step(id_telegram, message_id, inline_keyboard, language):
     inline_keyboard.add(InlineKeyboardButton(text=messages['btn_pay_1'][language], callback_data='start:subscription'))
     inline_keyboard.add(InlineKeyboardButton(text=messages['btn_free'][language], callback_data='start:free'))
@@ -652,6 +663,7 @@ def got_payment(message):
         filter_type(message.chat.id, messages['start_filter'][user['language']], user['language'])
 
 
+@async_dec()
 def send_message_with_keyboard(id_telegram, text, call_back_start, array_text, language, multi_select=False):
     inline_keyboard = InlineKeyboardMarkup()
     for i in range(len(array_text)):
@@ -665,6 +677,7 @@ def send_message_with_keyboard(id_telegram, text, call_back_start, array_text, l
     bot.send_message(id_telegram, text, parse_mode="Markdown", reply_markup=inline_keyboard)
 
 
+@async_dec()
 def send_apartment(id_telegram, apartment_object, back_id, next_id, user, message_id=None, edit=False,
                    count_photos=None, is_saved=False):
     media_photos = []
@@ -755,6 +768,7 @@ def send_apartment(id_telegram, apartment_object, back_id, next_id, user, messag
             pay_message(id_telegram, user)
 
 
+@async_dec()
 def update_apartment_msg(id_telegram, edit, count_photos, message_id, media_photos, user, navigation_keyboard):
     if edit:
         for i in range(count_photos + 1):
