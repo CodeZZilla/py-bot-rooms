@@ -17,10 +17,14 @@ logging.basicConfig(filename='file.log',
                     datefmt='%H:%M:%S %D.%M.%Y',
                     level=logging.DEBUG)
 
-tokens = open("tokens", "r")
-bot = telebot.TeleBot(tokens.readline().split('=')[1])
-tranzzo_token = tokens.readline().split('=')[1]
-tokens.close()
+TELEGRAM_TOKEN = ''
+tranzzo_token = ''
+with open('tokens') as f:
+    arr = f.readline().split('<====>')
+    TELEGRAM_TOKEN = arr[0]
+    tranzzo_token = arr[1]
+
+bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 sticker_start = 'CAACAgUAAxkBAAP-X0qNH1rpyoDqT7odr43p9nZntwkAAm8DAALpCsgDr86-2QK6XXQbBA'
 prise_png = open('./files/animation.gif', 'rb')
