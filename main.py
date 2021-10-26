@@ -35,7 +35,7 @@ services = json.load(open('static/services.json', encoding='utf-8'))
 rooms = json.load(open('static/rooms.json', encoding='utf-8'))
 regions = json.load(open('static/regions.json', encoding='utf-8'))
 
-TIME_SLEEP = 0
+TIME_SLEEP = 3
 metro_colors = {
     'red': '🔴',
     'blue': '🔵',
