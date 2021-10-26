@@ -1,7 +1,7 @@
 import requests
 from datetime import date
 
-link = 'http://95.217.184.62:8080/api'
+link = 'http://localhost:8080/api' #95.217.184.62
 
 
 def createUser(message):

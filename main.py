@@ -85,6 +85,7 @@ def start_message(message):
         bot.send_message(chat_id, messages['start_registered'][user['language']])
     else:
         api.createUser(message)
+        language_message(chat_id)
 
 
 @bot.message_handler(commands=['language'])
