@@ -1,0 +1,546 @@
+[
+  {
+    "lineENG": "1. Sviatoshynsko-Brovarska",
+    "lineRU": "1. Святошинско-Броварская",
+    "lineUA": "1. Святошинсько-Броварська",
+    "order": "0",
+    "stations": [
+      {
+        "nameENG": "Akademmistechko",
+        "nameRU": "Академгородок",
+        "nameUA": "Академмістечко",
+        "order": "0",
+        "location": {
+          "lng": 30.355511,
+          "lat": 50.464784
+        }
+      },
+      {
+        "nameENG": "Zhytomyrska",
+        "nameRU": "Житомирская",
+        "nameUA": "Житомирська",
+        "order": "1",
+        "location": {
+          "lng": 30.36479,
+          "lat": 50.455884
+        }
+      },
+      {
+        "nameENG": "Sviatoshyn",
+        "nameRU": "Святошин",
+        "nameUA": "Святошин",
+        "order": "2",
+        "location": {
+          "lng": 30.391776,
+          "lat": 50.457685
+        }
+      },
+      {
+        "nameENG": "Nyvky",
+        "nameRU": "Нивки",
+        "nameUA": "Нивки",
+        "order": "3",
+        "location": {
+          "lng": 30.405682,
+          "lat": 50.458602
+        }
+      },
+      {
+        "nameENG": "Beresteiska",
+        "nameRU": "Берестейская",
+        "nameUA": "Берестейська",
+        "order": "4",
+        "location": {
+          "lng": 30.420522,
+          "lat": 50.458562
+        }
+      },
+      {
+        "nameENG": "Shuliavska",
+        "nameRU": "Шулявская",
+        "nameUA": "Шулявська",
+        "order": "5",
+        "location": {
+          "lng": 30.445208,
+          "lat": 50.454622
+        }
+      },
+      {
+        "nameENG": "Politekhnichnyi Instytut",
+        "nameRU": "Политехнический институт",
+        "nameUA": "Політехнічний інститут",
+        "order": "6",
+        "location": {
+          "lng": 30.466327,
+          "lat": 50.450814
+        }
+      },
+      {
+        "nameENG": "Vokzalna",
+        "nameRU": "Вокзальная",
+        "nameUA": "Вокзальна",
+        "order": "7",
+        "location": {
+          "lng": 30.488273,
+          "lat": 50.44178
+        }
+      },
+      {
+        "nameENG": "Universytet",
+        "nameRU": "Университет",
+        "nameUA": "Університет",
+        "order": "8",
+        "location": {
+          "lng": 30.506006,
+          "lat": 50.444401
+        }
+      },
+      {
+        "nameENG": "Teatralna",
+        "nameRU": "Театральная",
+        "nameUA": "Театральна",
+        "order": "9",
+        "location": {
+          "lng": 30.518178,
+          "lat": 50.445135
+        }
+      },
+      {
+        "nameENG": "Khreshchatyk",
+        "nameRU": "Крещатик",
+        "nameUA": "Хрещатик",
+        "order": "10",
+        "location": {
+          "lng": 30.524933,
+          "lat": 50.447218
+        }
+      },
+      {
+        "nameENG": "Arsenalna",
+        "nameRU": "Арсенальная",
+        "nameUA": "Арсенальна",
+        "order": "11",
+        "location": {
+          "lng": 30.545379,
+          "lat": 50.444332
+        }
+      },
+      {
+        "nameENG": "Dnipro",
+        "nameRU": "Днепр",
+        "nameUA": "Дніпро",
+        "order": "12",
+        "location": {
+          "lng": 30.559374,
+          "lat": 50.441217
+        }
+      },
+      {
+        "nameENG": "Hidropark",
+        "nameRU": "Гидропарк",
+        "nameUA": "Гідропарк",
+        "order": "13",
+        "location": {
+          "lng": 30.57699,
+          "lat": 50.445956
+        }
+      },
+      {
+        "nameENG": "Livoberezhna",
+        "nameRU": "Левобережная",
+        "nameUA": "Лівобережна",
+        "order": "14",
+        "location": {
+          "lng": 30.59811,
+          "lat": 50.4518
+        }
+      },
+      {
+        "nameENG": "Darnytsia",
+        "nameRU": "Дарница",
+        "nameUA": "Дарниця",
+        "order": "15",
+        "location": {
+          "lng": 30.612905,
+          "lat": 50.455924
+        }
+      },
+      {
+        "nameENG": "Chernihivska",
+        "nameRU": "Черниговская",
+        "nameUA": "Чернігівська",
+        "order": "16",
+        "location": {
+          "lng": 30.630269,
+          "lat": 50.459852
+        }
+      },
+      {
+        "nameENG": "Lisova",
+        "nameRU": "Лесная",
+        "nameUA": "Лісова",
+        "order": "17",
+        "location": {
+          "lng": 30.645541,
+          "lat": 50.464629
+        }
+      }
+    ]
+  },
+  {
+    "lineENG": "2. Kurenivsko-Chervonoarmiyska",
+    "lineRU": "2. Куренёвско-Красноармейская",
+    "lineUA": "2. Куренівсько-Червоноармійська",
+    "order": "1",
+    "stations": [
+      {
+        "nameENG": "Heroiv Dnipra",
+        "nameRU": "Героев Днепра",
+        "nameUA": "Героїв Дніпра",
+        "order": "18",
+        "location": {
+          "lng": 30.498891,
+          "lat": 50.52258
+        }
+      },
+      {
+        "nameENG": "Minska",
+        "nameRU": "Минская",
+        "nameUA": "Мінська",
+        "order": "19",
+        "location": {
+          "lng": 30.498541,
+          "lat": 50.512196
+        }
+      },
+      {
+        "nameENG": "Obolon",
+        "nameRU": "Оболонь",
+        "nameUA": "Оболонь",
+        "order": "20",
+        "location": {
+          "lng": 30.498253,
+          "lat": 50.501466
+        }
+      },
+      {
+        "nameENG": "Petrivka",
+        "nameRU": "Петровка",
+        "nameUA": "Петрівка",
+        "order": "21",
+        "location": {
+          "lng": 30.497885,
+          "lat": 50.486074
+        }
+      },
+      {
+        "nameENG": "Tarasa Shevchenka",
+        "nameRU": "Тараса Шевченко",
+        "nameUA": "Тараса Шевченка",
+        "order": "22",
+        "location": {
+          "lng": 30.505134,
+          "lat": 50.473286
+        }
+      },
+      {
+        "nameENG": "Kontraktova Ploshcha",
+        "nameRU": "Контрактовая площадь",
+        "nameUA": "Контрактова площа",
+        "order": "23",
+        "location": {
+          "lng": 30.514836,
+          "lat": 50.465604
+        }
+      },
+      {
+        "nameENG": "Poshtova Ploshcha",
+        "nameRU": "Почтовая площадь",
+        "nameUA": "Поштова площа",
+        "order": "24",
+        "location": {
+          "lng": 30.524933,
+          "lat": 50.458935
+        }
+      },
+      {
+        "nameENG": "Maidan Nezalezhnosti",
+        "nameRU": "Площадь Независимости",
+        "nameUA": "Майдан Незалежності",
+        "order": "25",
+        "location": {
+          "lng": 30.524196,
+          "lat": 50.450028
+        }
+      },
+      {
+        "nameENG": "Ploshcha Lva Tolstoho",
+        "nameRU": "Площадь Льва Толстого",
+        "nameUA": "Площа Льва Толстого",
+        "order": "26",
+        "location": {
+          "lng": 30.516327,
+          "lat": 50.439221
+        }
+      },
+      {
+        "nameENG": "Olimpiiska",
+        "nameRU": "Олимпийская",
+        "nameUA": "Олімпійська",
+        "order": "27",
+        "location": {
+          "lng": 30.51621,
+          "lat": 50.432244
+        }
+      },
+      {
+        "nameENG": "Palats Ukrayina",
+        "nameRU": "Дворец Украина",
+        "nameUA": "Палац Україна",
+        "order": "28",
+        "location": {
+          "lng": 30.520738,
+          "lat": 50.420641
+        }
+      },
+      {
+        "nameENG": "Lybidska",
+        "nameRU": "Лыбедская",
+        "nameUA": "Либідська",
+        "order": "29",
+        "location": {
+          "lng": 30.524879,
+          "lat": 50.412714
+        }
+      },
+      {
+        "nameENG": "Demiivska",
+        "nameRU": "Демиевская",
+        "nameUA": "Деміївська",
+        "order": "30",
+        "location": {
+          "lng": 30.516615,
+          "lat": 50.404563
+        }
+      },
+      {
+        "nameENG": "Holosiivska",
+        "nameRU": "Голосеевская",
+        "nameUA": "Голосіївська",
+        "order": "31",
+        "location": {
+          "lng": 30.510066,
+          "lat": 50.397879
+        }
+      },
+      {
+        "nameENG": "Vasylkivska",
+        "nameRU": "Васильковская",
+        "nameUA": "Васильківська",
+        "order": "32",
+        "location": {
+          "lng": 30.485551,
+          "lat": 50.392815
+        }
+      },
+      {
+        "nameENG": "Vystavkovyi Tsentr",
+        "nameRU": "Выставочный центр",
+        "nameUA": "Виставковий центр",
+        "order": "33",
+        "location": {
+          "lng": 30.477134,
+          "lat": 50.382092
+        }
+      },
+      {
+        "nameENG": "Ipodrom",
+        "nameRU": "Ипподром",
+        "nameUA": "Іподром",
+        "order": "34",
+        "location": {
+          "lng": 30.468923,
+          "lat": 50.376526
+        }
+      },
+      {
+        "nameENG": "Teremky",
+        "nameRU": "Теремки",
+        "nameUA": "Теремки",
+        "order": "35",
+        "location": {
+          "lng": 30.454203,
+          "lat": 50.367044
+        }
+      }
+    ]
+  },
+  {
+    "lineENG": "3. Syretsko-Pecherska",
+    "lineRU": "3. Сырецко-Печерская",
+    "lineUA": "3. Сирецько-Печерська",
+    "order": "2",
+    "stations": [
+      {
+        "nameENG": "Syrets",
+        "nameRU": "Сырец",
+        "nameUA": "Сирець",
+        "order": "36",
+        "location": {
+          "lng": 30.430736,
+          "lat": 50.476221
+        }
+      },
+      {
+        "nameENG": "Dorohozhychi",
+        "nameRU": "Дорогожичи",
+        "nameUA": "Дорогожичі",
+        "order": "37",
+        "location": {
+          "lng": 30.448406,
+          "lat": 50.473452
+        }
+      },
+      {
+        "nameENG": "Lukianivska",
+        "nameRU": "Лукьяновская",
+        "nameUA": "Лук'янівська",
+        "order": "38",
+        "location": {
+          "lng": 30.482101,
+          "lat": 50.462249
+        }
+      },
+      {
+        "nameENG": "Zoloti Vorota",
+        "nameRU": "Золотые ворота",
+        "nameUA": "Золоті ворота",
+        "order": "39",
+        "location": {
+          "lng": 30.513668,
+          "lat": 50.448342
+        }
+      },
+      {
+        "nameENG": "Palats Sportu",
+        "nameRU": "Дворец спорта",
+        "nameUA": "Палац спорту",
+        "order": "40",
+        "location": {
+          "lng": 30.520684,
+          "lat": 50.437838
+        }
+      },
+      {
+        "nameENG": "Klovska",
+        "nameRU": "Кловская",
+        "nameUA": "Кловська",
+        "order": "41",
+        "location": {
+          "lng": 30.531922,
+          "lat": 50.436731
+        }
+      },
+      {
+        "nameENG": "Pecherska",
+        "nameRU": "Печерская",
+        "nameUA": "Печерська",
+        "order": "42",
+        "location": {
+          "lng": 30.538776,
+          "lat": 50.427315
+        }
+      },
+      {
+        "nameENG": "Druzhby Narodiv",
+        "nameRU": "Дружбы народов",
+        "nameUA": "Дружби народів",
+        "order": "43",
+        "location": {
+          "lng": 30.544462,
+          "lat": 50.418001
+        }
+      },
+      {
+        "nameENG": "Vydubychi",
+        "nameRU": "Выдубичи",
+        "nameUA": "Видубичі",
+        "order": "44",
+        "location": {
+          "lng": 30.560686,
+          "lat": 50.401428
+        }
+      },
+      {
+        "nameENG": "Slavutych",
+        "nameRU": "Славутич",
+        "nameUA": "Славутич",
+        "order": "45",
+        "location": {
+          "lng": 30.604452,
+          "lat": 50.394164
+        }
+      },
+      {
+        "nameENG": "Osokorky",
+        "nameRU": "Осокорки",
+        "nameUA": "Осокорки",
+        "order": "46",
+        "location": {
+          "lng": 30.616148,
+          "lat": 50.395537
+        }
+      },
+      {
+        "nameENG": "Pozniaky",
+        "nameRU": "Позняки",
+        "nameUA": "Позняки",
+        "order": "47",
+        "location": {
+          "lng": 30.63433,
+          "lat": 50.398344
+        }
+      },
+      {
+        "nameENG": "Kharkivska",
+        "nameRU": "Харьковская",
+        "nameUA": "Харківська",
+        "order": "48",
+        "location": {
+          "lng": 30.652,
+          "lat": 50.401072
+        }
+      },
+      {
+        "nameENG": "Vyrlytsia",
+        "nameRU": "Вырлица",
+        "nameUA": "Вирлиця",
+        "order": "49",
+        "location": {
+          "lng": 30.665969,
+          "lat": 50.403185
+        }
+      },
+      {
+        "nameENG": "Boryspilska",
+        "nameRU": "Бориспольская",
+        "nameUA": "Бориспільська",
+        "order": "50",
+        "location": {
+          "lng": 30.682974,
+          "lat": 50.403403
+        }
+      },
+      {
+        "nameENG": "Chervony Khutir",
+        "nameRU": "Красный хутор",
+        "nameUA": "Червоний хутір",
+        "order": "51",
+        "location": {
+          "lng": 30.695918,
+          "lat": 50.409505
+        }
+      }
+    ]
+  }
+]
