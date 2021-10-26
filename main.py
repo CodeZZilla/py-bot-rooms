@@ -126,7 +126,7 @@ def filters_message(message):
             filter_type(chat_id, messages['start_filter'][user['language']], user['language'])
         elif user['userStatus'] == status.UserStatus.STEP_CITY.value:
             filter_city(chat_id, '', messages['filter_city'][user['language']], user['language'], True)
-        elif user['userStatus'] == status.UserStatus.STEP_PRICE:
+        elif user['userStatus'] == status.UserStatus.STEP_PRICE.value:
             filter_price(chat_id, '', user['language'], True)
         elif user['userStatus'] == status.UserStatus.STEP_ROOMS.value:
             send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']],
@@ -144,8 +144,12 @@ def apartments_message(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
     today_compilation_array = user['todayCompilation']
+    print(today_compilation_array)
     if len(today_compilation_array) == 0:
         bot.send_message(chat_id, messages['msg_apartment_update_filters'][user['language']])
+    elif len(today_compilation_array) == 1:
+        send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
+                       today_compilation_array[0], today_compilation_array[0], user)
     else:
         send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
                        today_compilation_array[len(today_compilation_array) - 1], today_compilation_array[1], user)
@@ -158,6 +162,9 @@ def saved_message(message):
     saved_apartments_array = user['savedApartments']
     if len(saved_apartments_array) == 0:
         bot.send_message(chat_id, messages['msg_saved_none'][user['language']])
+    elif len(saved_apartments_array) == 1:
+        send_apartment(chat_id, api.find_apartment(saved_apartments_array[0])[0],
+                       saved_apartments_array[0], saved_apartments_array[0], user, is_saved=True)
     else:
         send_apartment(chat_id, api.find_apartment(saved_apartments_array[0])[0],
                        saved_apartments_array[len(saved_apartments_array) - 1], saved_apartments_array[1], user,
@@ -328,6 +335,8 @@ def callback_inline(call):
                 else:
                     bot.delete_message(chat_id, call.message.id)
                     bot.send_message(chat_id, messages['msg_after_filter'][user['language']])
+                    time.sleep(TIME_SLEEP)
+                    apartments_message(call.message)
             else:
                 bot.edit_message_reply_markup(chat_id, call.message.id,
                                               reply_markup=filter_multi_select(reply_markup, value))
@@ -378,32 +387,36 @@ def callback_inline(call):
                     array = user['todayCompilation']
                 else:
                     array = user['savedApartments']
-                index_value = array.index(int(value))
-                next_index = 0
-                back_index = 0
-                if len(array) >= 2:
-                    if index_value == 0:
-                        next_index = 1
-                        back_index = len(array) - 1
-                    elif index_value == len(array) - 1:
-                        next_index = 0
-                        back_index = len(array) - 2
-                    else:
-                        next_index = index_value + 1
-                        back_index = index_value - 1
-                elif len(array) == 1:
+
+                if not len(array) == 0:
+                    index_value = array.index(int(value))
                     next_index = 0
                     back_index = 0
-
-                apartment_obj = api.find_apartment(value)[0]
-                if key == "navigation":
-                    send_apartment(chat_id, apartment_obj, array[back_index],
-                                   array[next_index], user, call.message.id, True,
-                                   int(split_array[2]))
+                    if len(array) >= 2:
+                        if index_value == 0:
+                            next_index = 1
+                            back_index = len(array) - 1
+                        elif index_value == len(array) - 1:
+                            next_index = 0
+                            back_index = len(array) - 2
+                        else:
+                            next_index = index_value + 1
+                            back_index = index_value - 1
+                    elif len(array) == 1:
+                        next_index = 0
+                        back_index = 0
+                    apartment_obj = api.find_apartment(value)[0]
+                    if key == "navigation":
+                        send_apartment(chat_id, apartment_obj, array[back_index],
+                                       array[next_index], user, call.message.id, True,
+                                       int(split_array[2]))
+                    else:
+                        send_apartment(chat_id, apartment_obj, array[back_index],
+                                       array[next_index], user, call.message.id, True,
+                                       int(split_array[2]), True)
                 else:
-                    send_apartment(chat_id, apartment_obj, array[back_index],
-                                   array[next_index], user, call.message.id, True,
-                                   int(split_array[2]), True)
+                    for i in range(int(split_array[2]) + 1):
+                        bot.delete_message(chat_id, call.message.id - i)
             else:
                 saved_apartments_array = user['savedApartments']
                 if key == "navigation":
