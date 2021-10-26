@@ -533,7 +533,7 @@ def filter_price(id_telegram, message_id, language, new_message):
     #     bot.delete_message(id_telegram, message_id)
     #     bot.send_animation(id_telegram, prise_png, None, messages['filter_price'][language])
     # else:
-        bot.send_animation(id_telegram, prise_png, None, messages['filter_price'][language])
+    bot.send_animation(id_telegram, prise_png, None, messages['filter_price'][language])
 
 
 def filter_regions(id_telegram, message_id, language, city, edit_flag=False):
