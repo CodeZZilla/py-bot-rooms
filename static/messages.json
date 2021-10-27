@@ -192,16 +192,16 @@
     "en": ""
   },
   "btn_navigation_back": {
-    "ua": "⬅ Попередня",
-    "en": "⬅ Back"
+    "ua": "⬅",
+    "en": "⬅"
   },
   "btn_navigation_next": {
-    "ua": "Наступна ➡",
-    "en": "Next ➡"
+    "ua": "➡",
+    "en": "➡"
   },
   "btn_navigation_save": {
-    "ua": "Зберегти ❤",
-    "en": "Save ❤"
+    "ua": "❤",
+    "en": "❤"
   },
   "msg_apartment_update_filters": {
     "ua": "Оновіть свої фільтри командою /filters для ефективнішого пошуку квартир",
@@ -216,7 +216,7 @@
     "en": ""
   },
   "btn_del_save": {
-    "ua": "Видалити❌",
+    "ua": "❌",
     "en": ""
   },
   "msg_done_change_language": {
