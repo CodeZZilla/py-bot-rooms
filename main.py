@@ -6,6 +6,7 @@ import datetime
 import json
 import api
 import status
+import generator_telegraph
 from threading import Thread
 import schedule
 from telebot.util import async_dec
@@ -54,17 +55,18 @@ for item in regions_all_static:
 def send_message_from_server():
     data = api.get_users_messages()
     telegram_ids = data['userTelegramId']
-    file = open('get_users_messages')
-    if not file.read() == str(data):
-        file.close()
-        for id_item in telegram_ids:
-            try:
-                bot.send_message(int(id_item), data['messageText'])
-            except Exception:
-                continue
-        file_w = open("get_users_messages", "w")
-        file_w.write(str(data))
-        file_w.close()
+    if not data['userTelegramId'] is None and not data['messageText'] is None:
+        file = open('get_users_messages')
+        if not file.read() == str(data):
+            file.close()
+            for id_item in telegram_ids:
+                try:
+                    bot.send_message(int(id_item), data['messageText'])
+                except Exception:
+                    continue
+            file_w = open("get_users_messages", "w")
+            file_w.write(str(data))
+            file_w.close()
 
 
 schedule.every(10).seconds.do(send_message_from_server)
@@ -747,7 +749,10 @@ def send_apartment(id_telegram, apartment_object, back_id, next_id, user, messag
     if not apartment_object['floor'] is None:
         floor = '✅Поверх: ' + str(apartment_object['floor']) + '\n'
 
-    media_photos[0].caption = category + price + metro_room + location + sub_location_name + count_rooms + area + floor
+    url_details = generator_telegraph.get_url_by_id_apartment(apartment_object["internalId"])
+
+    media_photos[0].caption = category + price + metro_room + location + \
+                              sub_location_name + count_rooms + area + floor + url_details
 
     navigation = 'navigation'
     text_save_btn = messages['btn_navigation_save'][user['language']]

@@ -1,7 +1,7 @@
 import requests
 from datetime import date
 
-link = 'http://localhost:8080/api' #95.217.184.62
+link = 'http://localhost:8080/api'  #95.217.184.62
 
 
 def createUser(message):
@@ -85,6 +85,13 @@ def find_apartment(id_apartment):
     return req.json()
 
 
+def update_url(obj_id_apartment, language, new_url):
+    req = requests.put(link + '/apartments/updateUrl/' + str(obj_id_apartment),
+                       headers={'Content-Type': 'application/json'},
+                       json='{"url": ' + new_url + '}')
+    return req.json()
+
+
 def get_users_messages():
-    req = requests.get(link + '/apartments/json')
+    req = requests.get(link + '/message/find')
     return req.json()
