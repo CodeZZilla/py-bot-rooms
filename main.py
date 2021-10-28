@@ -19,8 +19,9 @@ logging.basicConfig(filename='file.log',
                     datefmt='%H:%M:%S %D.%M.%Y',
                     level=logging.DEBUG)
 
-TELEGRAM_TOKEN = ''
-tranzzo_token = ''
+tokens = json.load(open('tokens.json', encoding='utf-8'))
+TELEGRAM_TOKEN = tokens['TELEGRAM_TOKEN']
+tranzzo_token = tokens['TRANZZO_TOKEN']
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
