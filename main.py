@@ -91,7 +91,7 @@ def start_message(message):
         bot.send_sticker(chat_id, sticker_start)
         bot.send_message(chat_id, messages['start_registered'][user['language']])
     else:
-        api.createUser(message)
+        api.create_user(message)
         language_message(chat_id)
 
 
@@ -638,9 +638,14 @@ def send_text(message):
             api.update_field_for_user(telegram_id, int(min_and_max[0]), 'priceMin')
             api.update_field_for_user(telegram_id, int(min_and_max[1]), 'priceMax')
             if user['userStatus'] == status.UserStatus.STEP_PRICE.value:
-                api.update_field_for_user(telegram_id, status.UserStatus.STEP_ROOMS.value, 'userStatus')
-                send_message_with_keyboard(telegram_id, messages['count_rooms'][user['language']], "rooms", rooms,
-                                           user['language'], True)
+                if 'продажа' in user['type']:
+                    api.update_field_for_user(telegram_id, None, 'rooms')
+                    api.update_field_for_user(telegram_id, status.UserStatus.STEP_REGIONS.value, 'userStatus')
+                    filter_regions(telegram_id, '', user['language'], user['city'])
+                else:
+                    api.update_field_for_user(telegram_id, status.UserStatus.STEP_ROOMS.value, 'userStatus')
+                    send_message_with_keyboard(telegram_id, messages['count_rooms'][user['language']], "rooms", rooms,
+                                               user['language'], True)
             else:
                 api.update_field_for_user(telegram_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
                 menu_filters(telegram_id, api.get_user(telegram_id))

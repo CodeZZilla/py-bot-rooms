@@ -4,7 +4,7 @@ from datetime import date
 link = 'http://localhost:8080/api'  #95.217.184.62
 
 
-def createUser(message):
+def create_user(message):
     req = requests.post(link + '/user/add', headers={'Content-Type': 'application/json'}, json={
         'nickname': message.from_user.username,
         'name': message.from_user.first_name,
