@@ -638,7 +638,8 @@ def send_text(message):
             api.update_field_for_user(telegram_id, int(min_and_max[0]), 'priceMin')
             api.update_field_for_user(telegram_id, int(min_and_max[1]), 'priceMax')
             if user['userStatus'] == status.UserStatus.STEP_PRICE.value:
-                if 'продажа' in user['type']:
+                print(user['type'])
+                if 'аренда:комната' in user['type']:
                     api.update_field_for_user(telegram_id, None, 'rooms')
                     api.update_field_for_user(telegram_id, status.UserStatus.STEP_REGIONS.value, 'userStatus')
                     filter_regions(telegram_id, '', user['language'], user['city'])
