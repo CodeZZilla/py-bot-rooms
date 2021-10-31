@@ -101,7 +101,7 @@ def language_message(message):
     language_message(chat_id)
 
 
-@bot.message_handler(commands=['infobot'])
+@bot.message_handler(commands=['info'])
 def info_bot_message(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
