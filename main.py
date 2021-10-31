@@ -310,6 +310,7 @@ def callback_inline(call):
             # elif value == '30':
             #     amount = 49900
             prices = [LabeledPrice(label=messages['btn_pay_2'][user['language']], amount=amount)]
+            bot.send_message(chat_id, 'Тест: 4242 4242 4242 4242, cvv та дата будьякі')
             bot.send_message(chat_id, messages['msg_pre_pay'][user['language']])
             bot.send_invoice(chat_id,
                              title=messages['buy_1'][user['language']] + value + messages['buy_2'][user['language']],
