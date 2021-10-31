@@ -40,10 +40,15 @@ metro_colors = {
     'blue': '🔵',
     'green': '🟢'
 }
+# shipping_options = [
+#     ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 19900)),
+#     ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 29900)),
+#     ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 49900))]
 shipping_options = [
-    ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 19900)),
-    ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 29900)),
-    ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 49900))]
+    ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 000)),
+    ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 000)),
+    ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 000))]
+
 
 metros_all_static = []
 regions_all_static = regions['Киев']['regions']
@@ -199,12 +204,15 @@ def callback_inline(call):
                 elif value == 'rent_apartment':
                     value = 'аренда:квартира'
                 if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
+                    if value == 'аренда:комната':
+                        api.update_field_for_user(chat_id, None, 'rooms')
                     api.update_field_for_user(chat_id, value, "type")
                     api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, "userStatus")
                     menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
                 else:
                     if value == 'аренда:комната':
                         api.update_field_for_user(chat_id, None, 'rooms')
+                        api.update_field_for_user(chat_id, value, "type")
                         api.update_field_for_user(chat_id, status.UserStatus.STEP_PRICE.value, 'userStatus')
                         filter_price(chat_id, call.message.id, user['language'], False)
                     else:
@@ -255,11 +263,15 @@ def callback_inline(call):
                     else:
                         selected_rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-                    api.update_field_for_user(chat_id, selected_rooms, 'rooms')
                     if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
-                        api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
-                        menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
+                        if user['type'] == 'аренда:комната':
+                            api.update_field_for_user(chat_id, None, 'rooms')
+                        else:
+                            api.update_field_for_user(chat_id, selected_rooms, 'rooms')
+                            api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
+                            menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
                     else:
+                        api.update_field_for_user(chat_id, selected_rooms, 'rooms')
                         bot.delete_message(chat_id, call.message.id)
                         api.update_field_for_user(chat_id, status.UserStatus.STEP_PRICE.value, 'userStatus')
                         filter_price(chat_id, call.message.id, user['language'], False)
@@ -271,9 +283,11 @@ def callback_inline(call):
             if value == 'next' and user['userStatus'] == status.UserStatus.NO_FILTERS.value:
                 start_next_step(chat_id, call.message.id, inline_keyboard, user['language'])
             elif value == 'subscription' and user['userStatus'] == status.UserStatus.NO_FILTERS.value:
-                inline_keyboard.add(
-                    InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'),
-                    InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'),
+                inline_keyboard.row(
+                    InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
+                inline_keyboard.row(
+                    InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'))
+                inline_keyboard.row(
                     InlineKeyboardButton(text=messages['30days'][user['language']], callback_data='pay:30'))
                 inline_keyboard.row(
                     InlineKeyboardButton(text=messages['btn_back'][user['language']], callback_data='start:back'))
@@ -287,13 +301,13 @@ def callback_inline(call):
                 api.update_field_for_user(chat_id, status.UserStatus.STEP_CITY.value, "userStatus")
                 filter_city(chat_id, '', messages['filter_city'][user['language']], user['language'], True)
         elif key == "pay":
-            amount = 0
-            if value == '7':
-                amount = 19900
-            elif value == '14':
-                amount = 29900
-            elif value == '30':
-                amount = 49900
+            amount = 000
+            # if value == '7':
+            #     amount = 19900
+            # elif value == '14':
+            #     amount = 29900
+            # elif value == '30':
+            #     amount = 49900
             prices = [LabeledPrice(label=messages['btn_pay_2'][user['language']], amount=amount)]
             bot.send_message(chat_id, messages['msg_pre_pay'][user['language']])
             bot.send_invoice(chat_id,
