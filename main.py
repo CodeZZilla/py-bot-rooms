@@ -45,9 +45,9 @@ metro_colors = {
 #     ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 29900)),
 #     ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 49900))]
 shipping_options = [
-    ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 000)),
-    ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 000)),
-    ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 000))]
+    ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 100)),
+    ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 100)),
+    ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 100))]
 
 
 metros_all_static = []
@@ -301,7 +301,8 @@ def callback_inline(call):
                 api.update_field_for_user(chat_id, status.UserStatus.STEP_CITY.value, "userStatus")
                 filter_city(chat_id, '', messages['filter_city'][user['language']], user['language'], True)
         elif key == "pay":
-            amount = 000
+            amount = 100
+            # amount = 0
             # if value == '7':
             #     amount = 19900
             # elif value == '14':
