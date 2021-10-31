@@ -214,9 +214,13 @@ def callback_inline(call):
                 if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
                     if value == 'аренда:комната':
                         api.update_field_for_user(chat_id, None, 'rooms')
-                    api.update_field_for_user(chat_id, value, "type")
-                    api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, "userStatus")
-                    menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
+                        api.update_field_for_user(chat_id, value, "type")
+                        send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']], "rooms", rooms,
+                                                   user['language'], True)
+                    else:
+                        api.update_field_for_user(chat_id, value, "type")
+                        api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, "userStatus")
+                        menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
                 else:
                     if value == 'аренда:комната':
                         api.update_field_for_user(chat_id, None, 'rooms')
