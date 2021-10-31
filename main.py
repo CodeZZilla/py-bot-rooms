@@ -276,7 +276,7 @@ def callback_inline(call):
                         selected_rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
                     if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
-                        if user['type'] == 'аренда:комната':
+                        if not user['type'] == 'аренда:комната':
                             api.update_field_for_user(chat_id, None, 'rooms')
                         else:
                             api.update_field_for_user(chat_id, selected_rooms, 'rooms')
