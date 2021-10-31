@@ -215,12 +215,12 @@ def callback_inline(call):
                     if value == 'аренда:комната':
                         api.update_field_for_user(chat_id, None, 'rooms')
                         api.update_field_for_user(chat_id, value, "type")
-                        send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']], "rooms", rooms,
-                                                   user['language'], True)
-                    else:
-                        api.update_field_for_user(chat_id, value, "type")
                         api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, "userStatus")
                         menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
+                    else:
+                        api.update_field_for_user(chat_id, value, "type")
+                        send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']], "rooms", rooms,
+                                                   user['language'], True)
                 else:
                     if value == 'аренда:комната':
                         api.update_field_for_user(chat_id, None, 'rooms')
@@ -276,7 +276,7 @@ def callback_inline(call):
                         selected_rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
                     if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
-                        if not user['type'] == 'аренда:комната':
+                        if user['type'] == 'аренда:комната':
                             api.update_field_for_user(chat_id, None, 'rooms')
                         else:
                             api.update_field_for_user(chat_id, selected_rooms, 'rooms')
