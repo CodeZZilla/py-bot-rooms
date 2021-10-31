@@ -455,9 +455,12 @@ def callback_inline(call):
                                        array[next_index], user, call.message.id, True,
                                        int(split_array[2]))
                     else:
-                        send_apartment(chat_id, apartment_obj, array[back_index],
-                                       array[next_index], user, call.message.id, True,
-                                       int(split_array[2]), True)
+                        if len(user['savedApartments']) == 0:
+                            bot.send_message(chat_id, messages['msg_saved_none'][user['language']])
+                        else:
+                            send_apartment(chat_id, apartment_obj, array[back_index],
+                                           array[next_index], user, call.message.id, True,
+                                           int(split_array[2]), True)
                 else:
                     for i in range(int(split_array[2]) + 1):
                         bot.delete_message(chat_id, call.message.id - i)
