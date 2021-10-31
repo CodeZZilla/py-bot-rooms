@@ -20,7 +20,7 @@ def create_user(message):
         'userStatus': 0,
         'language': 'ua',
         'savedApartments': [],
-        'freeCounterSearch': 5
+        'freeCounterSearch': 10
     })
     return req.json()
 
