@@ -40,14 +40,10 @@ metro_colors = {
     'blue': '🔵',
     'green': '🟢'
 }
-# shipping_options = [
-#     ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 19900)),
-#     ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 29900)),
-#     ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 49900))]
 shipping_options = [
-    ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 100)),
-    ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 100)),
-    ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 100))]
+    ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 19900)),
+    ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 29900)),
+    ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 49900))]
 
 
 metros_all_static = []
@@ -301,23 +297,19 @@ def callback_inline(call):
                 api.update_field_for_user(chat_id, status.UserStatus.STEP_CITY.value, "userStatus")
                 filter_city(chat_id, '', messages['filter_city'][user['language']], user['language'], True)
         elif key == "pay":
-            amount = 100
-            # amount = 0
-            # if value == '7':
-            #     amount = 19900
-            # elif value == '14':
-            #     amount = 29900
-            # elif value == '30':
-            #     amount = 49900
+            amount = 0
+            if value == '7':
+                amount = 19900
+            elif value == '14':
+                amount = 29900
+            elif value == '30':
+                amount = 49900
             prices = [LabeledPrice(label=messages['btn_pay_2'][user['language']], amount=amount)]
             bot.send_message(chat_id, 'Тест: 4242 4242 4242 4242, cvv та дата будьякі')
             bot.send_message(chat_id, messages['msg_pre_pay'][user['language']])
             bot.send_invoice(chat_id,
                              title=messages['buy_1'][user['language']] + value + messages['buy_2'][user['language']],
-                             description='Want to visit your great-great-great-grandparents?'
-                                         ' Make a fortune at the races?'
-                                         ' Shake hands with Hammurabi and take a stroll in the Hanging Gardens?'
-                                         ' Order our Working Time Machine today!',
+                             description='Оплата за користування ботом',
                              provider_token=tranzzo_token,
                              currency='UAH',
                              prices=prices,
