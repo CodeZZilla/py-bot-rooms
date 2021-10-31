@@ -301,9 +301,9 @@ def callback_inline(call):
                     InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'))
                 inline_keyboard.row(
                     InlineKeyboardButton(text=messages['30days'][user['language']], callback_data='pay:30'))
-                if split_array[2] is None:
-                    inline_keyboard.row(
-                        InlineKeyboardButton(text=messages['btn_back'][user['language']], callback_data='start:back'))
+                # if split_array[2] is None:
+                inline_keyboard.row(
+                    InlineKeyboardButton(text=messages['btn_back'][user['language']], callback_data='start:back'))
                 bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=inline_keyboard)
             elif value == 'back' and user['userStatus'] == status.UserStatus.NO_FILTERS.value:
                 start_next_step(chat_id, call.message.id, inline_keyboard, user['language'])
