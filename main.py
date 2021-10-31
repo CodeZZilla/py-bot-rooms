@@ -101,12 +101,12 @@ def language_message(message):
     language_message(chat_id)
 
 
-@bot.message_handler(commands=['info'])
+@bot.message_handler(commands=['infobot'])
 def info_bot_message(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
-    bot.send_message(chat_id, message['msg_infobot_1'][user['language']])
-    bot.send_message(chat_id, message['msg_infobot_2'][user['language']])
+    bot.send_message(chat_id, messages['msg_infobot_1'][user['language']])
+    bot.send_message(chat_id, messages['msg_infobot_2'][user['language']])
 
 
 @bot.message_handler(commands=['infosubscription'])
