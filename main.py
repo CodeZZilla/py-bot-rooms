@@ -101,7 +101,7 @@ def language_message(message):
     language_message(chat_id)
 
 
-@bot.message_handler(commands=['info'])
+@bot.message_handler(commands=['infosubscription'])
 def info_message(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
@@ -132,8 +132,9 @@ def filters_message(message):
         elif user['userStatus'] == status.UserStatus.STEP_PRICE.value:
             filter_price(chat_id, '', user['language'], True)
         elif user['userStatus'] == status.UserStatus.STEP_ROOMS.value:
-            send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']],
-                                       "rooms", rooms, user['language'], True)
+            if not user['type'] == 'аренда:комната':
+                send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']],
+                                           "rooms", rooms, user['language'], True)
         elif user['userStatus'] == status.UserStatus.STEP_REGIONS.value:
             filter_regions(chat_id, '', user['language'], user['city'], False)
         elif user['userStatus'] == status.UserStatus.STEP_METRO.value:
@@ -147,15 +148,19 @@ def apartments_message(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
     today_compilation_array = user['todayCompilation']
-    print(today_compilation_array)
     if len(today_compilation_array) == 0:
         bot.send_message(chat_id, messages['msg_apartment_update_filters'][user['language']])
-    elif len(today_compilation_array) == 1:
-        send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
-                       today_compilation_array[0], today_compilation_array[0], user)
     else:
-        send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
-                       today_compilation_array[len(today_compilation_array) - 1], today_compilation_array[1], user)
+        bot.send_message(chat_id, messages['msg_after_filter'][user['language']])
+        time.sleep(TIME_SLEEP)
+        bot.send_message(chat_id, messages['msg_after_filter_2'][user['language']])
+        time.sleep(TIME_SLEEP)
+        if len(today_compilation_array) == 1:
+            send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
+                           today_compilation_array[0], today_compilation_array[0], user)
+        else:
+            send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
+                           today_compilation_array[len(today_compilation_array) - 1], today_compilation_array[1], user)
 
 
 @bot.message_handler(commands=['saved'])
@@ -193,50 +198,71 @@ def callback_inline(call):
                     value = 'аренда:комната'
                 elif value == 'rent_apartment':
                     value = 'аренда:квартира'
-                elif value == 'all':
-                    value = 'аренда'
                 if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
                     api.update_field_for_user(chat_id, value, "type")
                     api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, "userStatus")
                     menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
                 else:
-                    api.update_field_for_user(chat_id, value, "type")
-                    api.update_field_for_user(chat_id, status.UserStatus.STEP_CITY.value, "userStatus")
-                    filter_city(chat_id, call.message.id, messages['filter_city'][user['language']], user['language'])
+                    if value == 'аренда:комната':
+                        api.update_field_for_user(chat_id, None, 'rooms')
+                        api.update_field_for_user(chat_id, status.UserStatus.STEP_PRICE.value, 'userStatus')
+                        filter_price(chat_id, call.message.id, user['language'], False)
+                    else:
+                        api.update_field_for_user(chat_id, value, "type")
+                        api.update_field_for_user(chat_id, status.UserStatus.STEP_ROOMS.value, 'userStatus')
+                        bot.delete_message(chat_id, call.message.id)
+                        send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']], "rooms", rooms,
+                                                   user['language'], True, True)
+
+                    # filter_city(chat_id, call.message.id, messages['filter_city'][user['language']], user['language'])
             elif value == 'back':
-                filter_type(chat_id, '', user['language'], True, call.message.id)
+                filter_type(chat_id, messages['start_filter'][user['language']], user['language'], True,
+                            call.message.id)
         elif key == "city":
             if value == 'Киев':
                 if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
                     api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, "userStatus")
                     menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
                 else:
-                    api.update_field_for_user(chat_id, status.UserStatus.STEP_PRICE.value, "userStatus")
+                    api.update_field_for_user(chat_id, status.UserStatus.STEP_TYPE.value, "userStatus")
                     api.update_field_for_user(chat_id, value, "city")
-                    filter_price(chat_id, call.message.id, user['language'], False)
+                    filter_type(chat_id, messages['start_filter'][user['language']], user['language'], True,
+                                call.message.id)
             else:
                 filter_city(chat_id, call.message.id, messages['filter_city_error'][user['language']], user['language'])
         elif key == "rooms":
             reply_markup = call.message.reply_markup
             inline_keyboard = reply_markup.keyboard
-            if value == 'save' or value == 'continue':
-                selected_rooms = filter_multi_select_return_array(inline_keyboard)
-                if not len(selected_rooms) == 0:
-                    if selected_rooms.__contains__('4+'):
-                        selected_rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            if value == 'save' or value == 'continue' or value == 'back':
+                if value == 'back':
+                    api.update_field_for_user(chat_id, status.UserStatus.STEP_TYPE.value, 'userStatus')
+                    filter_type(chat_id, messages['start_filter'][user['language']], user['language'], True,
+                                call.message.id)
+                else:
+                    selected_rooms = filter_multi_select_return_array(inline_keyboard)
+                    if len(selected_rooms) == 1:
+                        if selected_rooms[0] == '4+':
+                            selected_rooms = [4, 5, 6, 7, 8, 9, 10]
+                    elif len(selected_rooms) > 1:
+                        if selected_rooms.__contains__('4+'):
+                            selected_rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        else:
+                            for room in selected_rooms:
+                                if room == '4+':
+                                    room = 4
+                                else:
+                                    room = int(room)
                     else:
-                        for item in selected_rooms:
-                            item = int(item)
-                else:
-                    selected_rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        selected_rooms = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-                api.update_field_for_user(chat_id, selected_rooms, 'rooms')
-                if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
-                    api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
-                    menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
-                else:
-                    api.update_field_for_user(chat_id, status.UserStatus.STEP_REGIONS.value, 'userStatus')
-                    filter_regions(chat_id, call.message.id, user['language'], user['city'], True)
+                    api.update_field_for_user(chat_id, selected_rooms, 'rooms')
+                    if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
+                        api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
+                        menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
+                    else:
+                        bot.delete_message(chat_id, call.message.id)
+                        api.update_field_for_user(chat_id, status.UserStatus.STEP_PRICE.value, 'userStatus')
+                        filter_price(chat_id, call.message.id, user['language'], False)
             else:
                 bot.edit_message_reply_markup(chat_id, call.message.id,
                                               reply_markup=filter_multi_select(reply_markup, value))
@@ -257,9 +283,9 @@ def callback_inline(call):
             elif value == 'free' and user['userStatus'] == status.UserStatus.NO_FILTERS.value:
                 bot.edit_message_reply_markup(chat_id, call.message.id)
                 bot.send_message(chat_id, messages['info_free'][user['language']])
-                api.update_field_for_user(chat_id, status.UserStatus.STEP_TYPE.value, "userStatus")
                 time.sleep(TIME_SLEEP)
-                filter_type(chat_id, messages['start_filter'][user['language']], user['language'])
+                api.update_field_for_user(chat_id, status.UserStatus.STEP_CITY.value, "userStatus")
+                filter_city(chat_id, '', messages['filter_city'][user['language']], user['language'], True)
         elif key == "pay":
             amount = 0
             if value == '7':
@@ -290,13 +316,14 @@ def callback_inline(call):
                 bot.delete_message(chat_id, call.message.id)
                 bot.send_message(chat_id, messages['info'][user['language']])
                 time.sleep(TIME_SLEEP)
-                bot.send_message(chat_id, messages['info2'][user['language']])
-                time.sleep(TIME_SLEEP)
                 keyboard_start = InlineKeyboardMarkup()
                 keyboard_start.add(
                     InlineKeyboardButton(text=messages['btn_start'][user['language']], callback_data='start:next'))
-                bot.send_message(chat_id, messages['info3'][user['language']], parse_mode="Markdown",
+                bot.send_message(chat_id, messages['info2'][user['language']], parse_mode="Markdown",
                                  reply_markup=keyboard_start)
+
+                # bot.send_message(chat_id, messages['info3'][user['language']], parse_mode="Markdown",
+                #                  reply_markup=keyboard_start)
             else:
                 bot.delete_message(chat_id, call.message.id)
                 bot.send_message(chat_id, messages['msg_done_change_language'][user['language']])
@@ -337,8 +364,6 @@ def callback_inline(call):
                     menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
                 else:
                     bot.delete_message(chat_id, call.message.id)
-                    bot.send_message(chat_id, messages['msg_after_filter'][user['language']])
-                    time.sleep(TIME_SLEEP)
                     apartments_message(call.message)
             else:
                 bot.edit_message_reply_markup(chat_id, call.message.id,
@@ -431,17 +456,19 @@ def callback_inline(call):
                 api.update_field_for_user(chat_id, saved_apartments_array, 'savedApartments')
                 reply_markup = call.message.reply_markup
                 keyboard = reply_markup.keyboard
-                keyboard[0][1].text = '✅ ' + keyboard[0][1].text
-                reply_markup.keyboard = keyboard
-                bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=reply_markup)
+                if not '✅ ' in keyboard[1][0].text:
+                    keyboard[1][0].text = '✅ ' + keyboard[1][0].text
+                    reply_markup.keyboard = keyboard
+                    bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=reply_markup)
 
 
 @async_dec()
 def language_message(chat_id):
     inline_keyboard = InlineKeyboardMarkup()
-    inline_keyboard.add(InlineKeyboardButton(text='Українська', callback_data='language:ua'))
-    inline_keyboard.add(InlineKeyboardButton(text='English', callback_data='language:en'))
-    bot.send_message(chat_id, 'Виберить мову\nChoose language', parse_mode="Markdown", reply_markup=inline_keyboard)
+    inline_keyboard.add(InlineKeyboardButton(text='🇺🇦 UA', callback_data='language:ua'))
+    inline_keyboard.add(InlineKeyboardButton(text='🇺🇸 EN', callback_data='language:en'))
+    bot.send_message(chat_id, '👋🏻 Обрати мову спілкування\nChoose your Language', parse_mode="Markdown",
+                     reply_markup=inline_keyboard)
 
 
 @async_dec()
@@ -518,12 +545,13 @@ def filter_multi_select(reply_markup, value):
 
 
 @async_dec()
-def filter_type(id_telegram, text, language, reply=False, message=None):
+def filter_type(id_telegram, text, language, reply=False, message_id=None):
     inline_keyboard = InlineKeyboardMarkup()
     inline_keyboard.add(InlineKeyboardButton(text=services[0][language], callback_data='service:' + services[0]['id']),
                         InlineKeyboardButton(text=services[1][language], callback_data='service:' + services[1]['id']))
     if reply:
-        bot.edit_message_reply_markup(id_telegram, message, reply_markup=inline_keyboard)
+        bot.edit_message_text(text, id_telegram, message_id)
+        bot.edit_message_reply_markup(id_telegram, message_id, reply_markup=inline_keyboard)
     else:
         bot.send_message(id_telegram, text, parse_mode="Markdown", reply_markup=inline_keyboard)
 
@@ -533,8 +561,8 @@ def filter_type_details(id_telegram, message_id, language):
     inline_keyboard = InlineKeyboardMarkup()
     inline_keyboard.add(InlineKeyboardButton(text=services[2][language], callback_data='service:' + services[2]['id']))
     inline_keyboard.add(InlineKeyboardButton(text=services[3][language], callback_data='service:' + services[3]['id']))
-    inline_keyboard.add(InlineKeyboardButton(text=services[4][language], callback_data='service:' + services[4]['id']),
-                        InlineKeyboardButton(text=messages['btn_back'][language], callback_data='service:back'))
+    inline_keyboard.add(InlineKeyboardButton(text=messages['btn_back'][language], callback_data='service:back'))
+    bot.edit_message_text(messages['msg_type_detal'][language], id_telegram, message_id)
     bot.edit_message_reply_markup(id_telegram, message_id, reply_markup=inline_keyboard)
 
 
@@ -557,6 +585,7 @@ def filter_price(id_telegram, message_id, language, new_message):
     #     bot.send_animation(id_telegram, prise_png, None, messages['filter_price'][language])
     # else:
     bot.send_message(id_telegram, messages['filter_price'][language])
+    bot.send_message(id_telegram, messages['filter_price_2'][language])
     # bot.send_animation(id_telegram, prise_png, None, messages['filter_price'][language])
 
 
@@ -638,15 +667,8 @@ def send_text(message):
             api.update_field_for_user(telegram_id, int(min_and_max[0]), 'priceMin')
             api.update_field_for_user(telegram_id, int(min_and_max[1]), 'priceMax')
             if user['userStatus'] == status.UserStatus.STEP_PRICE.value:
-                print(user['type'])
-                if 'аренда:комната' in user['type']:
-                    api.update_field_for_user(telegram_id, None, 'rooms')
-                    api.update_field_for_user(telegram_id, status.UserStatus.STEP_REGIONS.value, 'userStatus')
-                    filter_regions(telegram_id, '', user['language'], user['city'])
-                else:
-                    api.update_field_for_user(telegram_id, status.UserStatus.STEP_ROOMS.value, 'userStatus')
-                    send_message_with_keyboard(telegram_id, messages['count_rooms'][user['language']], "rooms", rooms,
-                                               user['language'], True)
+                api.update_field_for_user(telegram_id, status.UserStatus.STEP_REGIONS.value, 'userStatus')
+                filter_regions(telegram_id, '', user['language'], user['city'])
             else:
                 api.update_field_for_user(telegram_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
                 menu_filters(telegram_id, api.get_user(telegram_id))
@@ -682,11 +704,13 @@ def got_payment(message):
     bot.send_message(message.chat.id, messages['pay_good'][user['language']], parse_mode='Markdown')
     if user['userStatus'] == status.UserStatus.NO_FILTERS.value:
         api.update_field_for_user(message.chat.id, status.UserStatus.STEP_TYPE.value, "userStatus")
-        filter_type(message.chat.id, messages['start_filter'][user['language']], user['language'])
+
+        filter_city(message.chat.id, '', messages['filter_city'][user['language']], user['language'], True)
 
 
 @async_dec()
-def send_message_with_keyboard(id_telegram, text, call_back_start, array_text, language, multi_select=False):
+def send_message_with_keyboard(id_telegram, text, call_back_start, array_text, language, multi_select=False,
+                               is_first=False):
     inline_keyboard = InlineKeyboardMarkup()
     for i in range(len(array_text)):
         data = call_back_start + ":" + array_text[i]["id"]
@@ -696,6 +720,9 @@ def send_message_with_keyboard(id_telegram, text, call_back_start, array_text, l
         inline_keyboard.add(
             InlineKeyboardButton(text=messages['btn_continue'][language], callback_data=call_back_start + ':continue'),
             InlineKeyboardButton(text=messages['btn_save'][language], callback_data=call_back_start + ':save'))
+        if is_first:
+            inline_keyboard.row(
+                InlineKeyboardButton(text=messages['btn_back'][language], callback_data=call_back_start + ':back'))
     bot.send_message(id_telegram, text, parse_mode="Markdown", reply_markup=inline_keyboard)
 
 
@@ -716,51 +743,53 @@ def send_apartment(id_telegram, apartment_object, back_id, next_id, user, messag
     category = '🏠  Апартаменти  🏠'
     if not apartment_object['category'] is None:
         if apartment_object['category'] == 'комната':
-            category = '🏠  КІМНАТА  🏠' + '\n'
+            category = '🚪  КІМНАТА' + '\n'
         elif apartment_object['category'] == 'квартира':
-            category = '🏠  КВАРТИРА  🏠' + '\n'
+            category = '🏠  КВАРТИРА' + '\n'
         else:
             category = '🏠  ' + apartment_object['category'] + '  🏠' + '\n'
 
-    price = '✅Ціна: не вказана 😔\n'
+    price = '💰Ціна: не вказана 😔\n'
     if not apartment_object['price'] is None:
-        price = '✅Ціна: ' + str(apartment_object['price']['value']) + ' ' + str(
+        price = '💰Ціна: ' + str(apartment_object['price']['value']) + ' ' + str(
             apartment_object['price']['currency']) + '\n'
 
-    metro_room = '✅Метро: невідоме 😔\n'
+    metro_room = 'Метро: невідоме 😔\n'
     if not apartment_object['location']['metro'] is None:
         if apartment_object['location']['metro']['name'] == '':
-            metro_room = '✅Метро: невідоме 😔\n'
+            metro_room = 'Метро: невідоме 😔\n'
         else:
-            metro_room = '✅Метро: ' + apartment_object['location']['metro']['name'] + '\n'
+            metro_room = 'Метро: ' + apartment_object['location']['metro']['name'] + '\n'
 
-    location = '✅Адреса: невідома 😔\n'
+    location = '📍Адреса: невідома 😔\n'
     if not apartment_object['location']['address'] is None:
         if apartment_object['location']['address'] == '':
-            '✅Адреса: невідома 😔\n'
+            '📍Адреса: невідома 😔\n'
         else:
-            location = '✅Адреса: ' + apartment_object['location']['address'] + '\n'
+            location = '📍Адреса: ' + apartment_object['location']['address'] + '\n'
 
-    sub_location_name = '✅Район: невідомий 😔\n'
+    sub_location_name = 'Район: невідомий 😔\n'
     if not apartment_object['location']['subLocationName'] is None:
-        sub_location_name = '✅Район: ' + apartment_object['location']['subLocationName'] + '\n'
+        sub_location_name = 'Район: ' + apartment_object['location']['subLocationName'] + '\n'
 
-    count_rooms = '✅Кімнат: невідомо 😔\n'
+    count_rooms = 'Кімнат: невідомо 😔\n'
     if not apartment_object['rooms'] is None:
-        count_rooms = '✅Кімнат: ' + str(apartment_object['rooms']) + '\n'
+        count_rooms = 'Кімнат: ' + str(apartment_object['rooms']) + '\n'
 
-    area = '✅Площа: невідома 😔\n'
+    area = 'Площа: невідома 😔\n'
     if not apartment_object['area']['value'] is None:
-        area = '✅Площа: ' + str(apartment_object['area']['value']) + 'м²\n'
+        area = 'Площа: ' + str(apartment_object['area']['value']) + 'м²\n'
 
-    floor = '✅Поверх: невідомий 😔\n'
+    floor = 'Поверх: невідомий 😔\n'
     if not apartment_object['floor'] is None:
-        floor = '✅Поверх: ' + str(apartment_object['floor']) + '\n'
+        floor = 'Поверх: ' + str(apartment_object['floor']) + '\n'
 
     url_details = generator_telegraph.get_url_by_id_apartment(apartment_object["internalId"])
 
-    media_photos[0].caption = category + price + metro_room + location + \
-                              sub_location_name + count_rooms + area + floor + url_details
+    media_photos[0].parse_mode = 'Markdown'
+    media_photos[
+        0].caption = f'{category + price + location + metro_room + sub_location_name + count_rooms + area + floor}' \
+                     f'👉[ДЕТАЛЬНІШЕ]({url_details})👈'
 
     navigation = 'navigation'
     text_save_btn = messages['btn_navigation_save'][user['language']]
@@ -769,15 +798,19 @@ def send_apartment(id_telegram, apartment_object, back_id, next_id, user, messag
         text_save_btn = messages['btn_del_save'][user['language']]
 
     navigation_keyboard = InlineKeyboardMarkup()
-    navigation_keyboard.add(InlineKeyboardButton(
+    navigation_keyboard.row(InlineKeyboardButton(
         text=messages['btn_navigation_back'][user['language']],
         callback_data=f'{navigation}:{str(back_id)}:{str(len(media_photos))}'),
         InlineKeyboardButton(
-            text=text_save_btn,
-            callback_data=f'{navigation}:save:{str(apartment_object["internalId"])}'),
-        InlineKeyboardButton(
             text=messages['btn_navigation_next'][user['language']],
             callback_data=f'{navigation}:{str(next_id)}:{str(len(media_photos))}'))
+    navigation_keyboard.row(InlineKeyboardButton(
+        text=text_save_btn,
+        callback_data=f'{navigation}:save:{str(apartment_object["internalId"])}'),
+        InlineKeyboardButton(
+            text=messages['btn_send_apartm_help'][user['language']],
+            callback_data=f'{navigation}:help:{str(apartment_object["internalId"])}')
+    )
 
     if user['daysOfSubscription'] > 0:
         update_apartment_msg(id_telegram, edit, count_photos, message_id, media_photos, user, navigation_keyboard)

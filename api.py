@@ -62,21 +62,6 @@ def random_apartment(id_telegram):
     return req.json()
 
 
-def all_apartment(id_telegram):
-    user = get_user(id_telegram)
-    params = {
-        'city': user['city'],
-        'type': user['type'],
-        'priceMin': user['priceMin'],
-        'priceMax': user['priceMax'],
-        'rooms': user['rooms'],
-        'subLocationName': user['region'],
-        'metro': user['metroNames']
-    }
-    req = requests.get(link + '/apartments/allByParams', params=params)
-    return req.json()
-
-
 def find_apartment(id_apartment):
     params = {
         'id': [int(id_apartment)]
