@@ -1,5 +1,4 @@
 import requests
-from datetime import date
 
 link = 'http://localhost:8080/api'  #95.217.184.62
 
@@ -12,7 +11,6 @@ def create_user(message):
         'lastName': message.from_user.last_name,
         'daysOfSubscription': 0,
         'type': '',
-        'creationDate': str(date.today()),
         'region': [],
         'metroNames': [],
         'priceMin': 0,

@@ -45,7 +45,6 @@ shipping_options = [
     ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 29900)),
     ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 49900))]
 
-
 metros_all_static = []
 regions_all_static = regions['Киев']['regions']
 for item in regions_all_static:
@@ -102,13 +101,25 @@ def language_message(message):
     language_message(chat_id)
 
 
+@bot.message_handler(commands=['infobot'])
+def info_bot_message(message):
+    chat_id = message.chat.id
+    user = api.get_user(chat_id)
+    bot.send_message(chat_id, message['msg_infobot_1'][user['language']])
+    bot.send_message(chat_id, message['msg_infobot_2'][user['language']])
+
+
 @bot.message_handler(commands=['infosubscription'])
 def info_message(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
-    bot.send_message(chat_id, f"{messages['info_user'][user['language']]}{user['nickname']}\n"
-                              f"{messages['info_subscription'][user['language']]}{str(user['daysOfSubscription'])}\n"
-                              f"{messages['info_creation_date'][user['language']]}{user['creationDate'].split('T')[0]}")
+    if user['daysOfSubscription'] > 0:
+        bot.send_message(chat_id, f"{messages['info_subscription'][user['language']]}{str(user['daysOfSubscription'])}")
+    else:
+        inline_keyboard = InlineKeyboardMarkup()
+        inline_keyboard.row(
+            InlineKeyboardButton(text=messages['btn_pay_1'][user['language']], callback_data='start:subscription:infosubscription'))
+        bot.send_message(chat_id, messages['info_subscription_error'][user['language']], reply_markup=inline_keyboard)
 
 
 @bot.message_handler(commands=['pay'])
@@ -152,7 +163,8 @@ def apartments_message(message):
     if len(today_compilation_array) == 0:
         bot.send_message(chat_id, messages['msg_apartment_update_filters'][user['language']])
     else:
-        bot.send_message(chat_id, messages['msg_after_filter'][user['language']])
+        bot.send_message(chat_id, messages['msg_after_filter'][user['language']].replace('***', str(
+            len(user['todayCompilation']))))
         time.sleep(TIME_SLEEP)
         bot.send_message(chat_id, messages['msg_after_filter_2'][user['language']])
         time.sleep(TIME_SLEEP)
@@ -285,8 +297,9 @@ def callback_inline(call):
                     InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'))
                 inline_keyboard.row(
                     InlineKeyboardButton(text=messages['30days'][user['language']], callback_data='pay:30'))
-                inline_keyboard.row(
-                    InlineKeyboardButton(text=messages['btn_back'][user['language']], callback_data='start:back'))
+                if split_array[2] is None:
+                    inline_keyboard.row(
+                        InlineKeyboardButton(text=messages['btn_back'][user['language']], callback_data='start:back'))
                 bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=inline_keyboard)
             elif value == 'back' and user['userStatus'] == status.UserStatus.NO_FILTERS.value:
                 start_next_step(chat_id, call.message.id, inline_keyboard, user['language'])
@@ -347,13 +360,9 @@ def callback_inline(call):
                         selected_regions.append(item['id'])
 
                 api.update_field_for_user(chat_id, selected_regions, 'region')
-                if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
-                    api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
-                    menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
-                else:
+                if not user['userStatus'] == status.UserStatus.EDIT_MENU.value:
                     api.update_field_for_user(chat_id, status.UserStatus.STEP_METRO.value, 'userStatus')
-                    filter_metro(chat_id, call.message.id, api.get_user(chat_id), True)
-
+                filter_metro(chat_id, call.message.id, api.get_user(chat_id), True)
             else:
                 bot.edit_message_reply_markup(chat_id, call.message.id,
                                               reply_markup=filter_multi_select(reply_markup, value))
@@ -390,10 +399,8 @@ def callback_inline(call):
                     InlineKeyboardButton(text=messages['btn_filter_edit_rooms'][user['language']],
                                          callback_data='edit:rooms'))
                 filters_keyboard.row(
-                    InlineKeyboardButton(text=messages['btn_filter_edit_regions'][user['language']],
-                                         callback_data='edit:regions'),
-                    InlineKeyboardButton(text=messages['btn_filter_edit_metro'][user['language']],
-                                         callback_data='edit:metro'))
+                    InlineKeyboardButton(text=messages['btn_filter_edit_location'][user['language']],
+                                         callback_data='edit:location'))
 
                 bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=filters_keyboard)
             elif value == 'type':
@@ -410,12 +417,9 @@ def callback_inline(call):
                 api.update_field_for_user(chat_id, status.UserStatus.EDIT_MENU.value, "userStatus")
                 send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']], "rooms", rooms,
                                            user['language'], True)
-            elif value == 'regions':
+            elif value == 'location':
                 api.update_field_for_user(chat_id, status.UserStatus.EDIT_MENU.value, "userStatus")
                 filter_regions(chat_id, call.message.id, user['language'], user['city'], True)
-            elif value == 'metro':
-                api.update_field_for_user(chat_id, status.UserStatus.EDIT_MENU.value, "userStatus")
-                filter_metro(chat_id, call.message.id, api.get_user(chat_id), True)
         elif key == "navigation" or key == "navigation_save":
             if not value == "save":
                 array = []
