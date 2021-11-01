@@ -377,6 +377,8 @@ def callback_inline(call):
                 selected_metros = []
                 if value == 'save':
                     selected_metros = filter_multi_select_return_array(inline_keyboard)
+                    if len(selected_metros) == 0:
+                        selected_metros = None
                 elif value == 'continue':
                     selected_metros = None
                 api.update_field_for_user(chat_id, selected_metros, 'metroNames')
@@ -808,7 +810,7 @@ def send_apartment(id_telegram, apartment_object, back_id, next_id, user, messag
     media_photos[0].parse_mode = 'Markdown'
     media_photos[
         0].caption = f'{category + price + location + metro_room + sub_location_name + count_rooms + area + floor}' \
-                     f'👉[ДЕТАЛЬНІШЕ]({url_details})👈'
+                     f'👉[{messages["link_details"][user["language"]]}]({url_details})👈'
 
     navigation = 'navigation'
     text_save_btn = messages['btn_navigation_save'][user['language']]

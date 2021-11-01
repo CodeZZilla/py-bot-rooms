@@ -5,7 +5,7 @@
   },
   "info2": {
     "ua": "ЯК ЦЕ ПРАЦЮЄ?\n\n✅ Декілька питань від бота допоможуть налаштувати пошук житла під твої потреби.\n\n✅ Після налаштування параметрів пошуку, ти зможеш переглянути 10 безкоштовних оголошень від власників.\n\n✅ Для отримання БЕЗЛІМІТНОЇ кількості оголошень та щоденних оновлень, можна оформити підписку на \n7 | 14 | 30 днів",
-    "en": "HOW IT WORKS\u2028\u2028✅ A few questions from the bot-assistant will help to adjust the housing search right for your needs.\n\n✅ After setting up the search parameters, you can get 5 FREE recommended options.\n\n✅ To receive UNLIMITED number of housing options and get daily updates, you can subscribe to bot. There are 3 subscription pans available:\n for 7 | 14 | 30 days."
+    "en": "HOW IT WORKS\n\n✅ A few questions from the bot-assistant will help to adjust the housing search right for your needs.\n\n✅ After setting up the search parameters, you can get 5 FREE recommended options.\n\n✅ To receive UNLIMITED number of housing options and get daily updates, you can subscribe to bot. There are 3 subscription pans available:\n for 7 | 14 | 30 days."
   },
   "info3": {
     "ua": "ЯК ЦЕ ПРАЦЮЄ?\n- Ти можеш отримати 10 безкоштовних варіантів\n- Підбираю житло за твоїми параметрами",
@@ -250,5 +250,9 @@
   "msg_infobot_2": {
     "ua": "ЯК  КОРИСТУВАТИСЬ БОТОМ?\u2028\u2028Тут зібрано декілька підказок, які допоможуть краще зорієнтуватись в функціях та можливостях бота.\n\nБот знає декілька команд. Їх можна запустити через меню, або прописавши пісдля знаку “/” в повідомленні\u2028\u2028❣️ Збережені раніше квартири в меню️ “Збережені” /saved\n\n\uD83C\uDF1FНові оголошення /new\n\n\uD83D\uDCB0 Купити підписку \n/buysubscription\n\n⚙️ Оновити налаштування пошуку, або стерти всі попередні налаштування і почати спочатку /settings\n\n\uD83D\uDCA1Викликати це меню з підказками /botinfo\n\n\uD83D\uDCB3 Переглянути інформацію про мою підписку, термін закінчення її дії \n/mysubscription\n\n\uD83D\uDC45 Змінити мову бота \n/language",
     "en": "HOW TO USE THE BOT?\u2028\u2028Here you will find tips which will help to understand how the bot is working.\n\nBot knows a few commands. Commands can be launched via menu or by writing the needed command after the sign “/”\n\u2028❣️ The apartments saved before in menu “Saved” \n/saved\n\n\uD83C\uDF1F New apartments /new\n\n\uD83D\uDCB0 Buy subscription \n/buysubscription\n\n⚙️ Update filters or clear previous settings and start from the beginning \n/settings\n\n\uD83D\uDCA1Show this menu with tips /botinfo\n\n\uD83D\uDCB3 Check the information about my subscription, expiry date\n/mysubscription\n\n\uD83D\uDC45 Change bot language\n/language"
+  },
+  "link_details": {
+    "ua": "ДЕТАЛЬНІШЕ",
+    "en": "More details"
   }
 }
