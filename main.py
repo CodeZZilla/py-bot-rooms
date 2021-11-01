@@ -864,4 +864,4 @@ while True:
         count_restarts = count_restarts + 1
         print(f'count_restarts = {count_restarts}')
         logging.error(sys.exc_info()[0])
-        time.sleep(TIME_SLEEP)
+        time.sleep(1)
