@@ -254,5 +254,73 @@
   "link_details": {
     "ua": "ДЕТАЛЬНІШЕ",
     "en": "More details"
+  },
+  "area_card_none": {
+    "ua": "'Площа: невідома \uD83D\uDE14\n'",
+    "en": "Area: unknown \uD83D\uDE14\n"
+  },
+  "area_card": {
+    "ua": "Площа: ",
+    "en": "Area: "
+  },
+  "floor_card_none": {
+    "ua": "Поверх: невідомий \uD83D\uDE14\n'",
+    "en": "Floor: unknown \uD83D\uDE14\n"
+  },
+  "floor_card": {
+    "ua": "Поверх: ",
+    "en": "Floor: "
+  },
+  "rooms_card_none": {
+    "ua": "Кімнат: невідомо \uD83D\uDE14\n'",
+    "en": "Floor: unknown \uD83D\uDE14\n"
+  },
+  "rooms_card": {
+    "ua": "Кімнат: ",
+    "en": "Floor: "
+  },
+  "sub_location_card_none": {
+    "ua": "Район: невідомий \uD83D\uDE14\\n",
+    "en": "Region: unknown \uD83D\uDE14\\n"
+  },
+  "sub_location_card": {
+    "ua": "Район: ",
+    "en": "Region: "
+  },
+  "location_card_none": {
+    "ua": "\uD83D\uDCCDАдреса: невідома \uD83D\uDE14\n",
+    "en": "\uD83D\uDCCDLocation: unknown \uD83D\uDE14\n"
+  },
+  "location_card": {
+    "ua": "\uD83D\uDCCDАдреса: ",
+    "en": "\uD83D\uDCCDLocation: "
+  },
+  "metro_card_none": {
+    "ua": "Метро: невідоме \uD83D\uDE14\n",
+    "en": "Metro: unknown \uD83D\uDE14\n"
+  },
+  "metro_card": {
+    "ua": "Метро: ",
+    "en": "Metro: "
+  },
+  "price_card_none": {
+    "ua": "\uD83D\uDCB0Ціна: не вказана \uD83D\uDE14\n",
+    "en": "\uD83D\uDCB0Price: unknown \uD83D\uDE14\n"
+  },
+  "price_card": {
+    "ua": "\uD83D\uDCB0Ціна: ",
+    "en": "\uD83D\uDCB0Price: "
+  },
+  "category_card_none": {
+    "ua": "\uD83C\uDFE0  Апартаменти  \uD83C\uDFE0",
+    "en": "\uD83C\uDFE0  Apartments  \uD83C\uDFE0"
+  },
+  "category_card_room": {
+    "ua": "\uD83D\uDEAA  КІМНАТА",
+    "en": "\uD83D\uDEAA  ROOM"
+  },
+  "category_card_apartament": {
+    "ua": "\uD83C\uDFE0  КВАРТИРА",
+    "en": "\uD83D\uDEAA  APARTMENT"
   }
 }

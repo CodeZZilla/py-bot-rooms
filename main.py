@@ -118,7 +118,8 @@ def info_message(message):
     else:
         inline_keyboard = InlineKeyboardMarkup()
         inline_keyboard.row(
-            InlineKeyboardButton(text=messages['btn_pay_1'][user['language']], callback_data='start:subscription:infosubscription'))
+            InlineKeyboardButton(text=messages['btn_pay_1'][user['language']],
+                                 callback_data='start:subscription:infosubscription'))
         bot.send_message(chat_id, messages['info_subscription_error'][user['language']], reply_markup=inline_keyboard)
 
 
@@ -301,7 +302,6 @@ def callback_inline(call):
                     InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'))
                 inline_keyboard.row(
                     InlineKeyboardButton(text=messages['30days'][user['language']], callback_data='pay:30'))
-                # if split_array[2] is None:
                 inline_keyboard.row(
                     InlineKeyboardButton(text=messages['btn_back'][user['language']], callback_data='start:back'))
                 bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=inline_keyboard)
@@ -313,6 +313,14 @@ def callback_inline(call):
                 time.sleep(TIME_SLEEP)
                 api.update_field_for_user(chat_id, status.UserStatus.STEP_CITY.value, "userStatus")
                 filter_city(chat_id, '', messages['filter_city'][user['language']], user['language'], True)
+            elif value == 'subscription' and split_array[2] == 'infosubscription':
+                inline_keyboard.row(
+                    InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
+                inline_keyboard.row(
+                    InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'))
+                inline_keyboard.row(
+                    InlineKeyboardButton(text=messages['30days'][user['language']], callback_data='pay:30'))
+                bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=inline_keyboard)
         elif key == "pay":
             amount = 0
             if value == '7':
@@ -761,49 +769,50 @@ def send_apartment(id_telegram, apartment_object, back_id, next_id, user, messag
             else:
                 break
 
-    category = '🏠  Апартаменти  🏠'
+    category = messages["category_card_none"][user["language"]]
     if not apartment_object['category'] is None:
         if apartment_object['category'] == 'комната':
-            category = '🚪  КІМНАТА' + '\n'
+            category = messages["category_card_room"][user["language"]] + '\n'
         elif apartment_object['category'] == 'квартира':
-            category = '🏠  КВАРТИРА' + '\n'
+            category = messages["category_card_apartament"][user["language"]] + '\n'
         else:
             category = '🏠  ' + apartment_object['category'] + '  🏠' + '\n'
 
-    price = '💰Ціна: не вказана 😔\n'
+    price = messages["price_card_none"][user["language"]]
     if not apartment_object['price'] is None:
-        price = '💰Ціна: ' + str(apartment_object['price']['value']) + ' ' + str(
+        price = messages["price_card"][user["language"]] + str(apartment_object['price']['value']) + ' ' + str(
             apartment_object['price']['currency']) + '\n'
 
-    metro_room = 'Метро: невідоме 😔\n'
+    metro_room = messages["metro_card_none"][user["language"]]
     if not apartment_object['location']['metro'] is None:
         if apartment_object['location']['metro']['name'] == '':
-            metro_room = 'Метро: невідоме 😔\n'
+            metro_room = messages["metro_card_none"][user["language"]]
         else:
-            metro_room = 'Метро: ' + apartment_object['location']['metro']['name'] + '\n'
+            metro_room = messages["metro_card"][user["language"]] + apartment_object['location']['metro']['name'] + '\n'
 
-    location = '📍Адреса: невідома 😔\n'
+    location = messages["location_card_none"][user["language"]]
     if not apartment_object['location']['address'] is None:
         if apartment_object['location']['address'] == '':
-            '📍Адреса: невідома 😔\n'
+            location = messages["location_card_none"][user["language"]]
         else:
-            location = '📍Адреса: ' + apartment_object['location']['address'] + '\n'
+            location = messages["location_card"][user["language"]] + apartment_object['location']['address'] + '\n'
 
-    sub_location_name = 'Район: невідомий 😔\n'
+    sub_location_name = messages["sub_location_card_none"][user["language"]]
     if not apartment_object['location']['subLocationName'] is None:
-        sub_location_name = 'Район: ' + apartment_object['location']['subLocationName'] + '\n'
+        sub_location_name = messages["sub_location_card"][user["language"]] + apartment_object['location'][
+            'subLocationName'] + '\n'
 
-    count_rooms = 'Кімнат: невідомо 😔\n'
+    count_rooms = messages["rooms_card_none"][user["language"]]
     if not apartment_object['rooms'] is None:
-        count_rooms = 'Кімнат: ' + str(apartment_object['rooms']) + '\n'
+        count_rooms = messages["rooms_card"][user["language"]] + str(apartment_object['rooms']) + '\n'
 
-    area = 'Площа: невідома 😔\n'
+    area = messages["area_card_none"][user["language"]]
     if not apartment_object['area']['value'] is None:
-        area = 'Площа: ' + str(apartment_object['area']['value']) + 'м²\n'
+        area = messages["area_card"][user["language"]] + str(apartment_object['area']['value']) + 'м²\n'
 
-    floor = 'Поверх: невідомий 😔\n'
+    floor = messages["floor_card_none"][user["language"]]
     if not apartment_object['floor'] is None:
-        floor = 'Поверх: ' + str(apartment_object['floor']) + '\n'
+        floor = messages["floor_card"][user["language"]] + str(apartment_object['floor']) + '\n'
 
     url_details = generator_telegraph.get_url_by_id_apartment(apartment_object["internalId"])
 
