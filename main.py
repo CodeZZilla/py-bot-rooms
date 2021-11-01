@@ -378,7 +378,7 @@ def callback_inline(call):
                 if value == 'save':
                     selected_metros = filter_multi_select_return_array(inline_keyboard)
                 elif value == 'continue':
-                    selected_metros = metros_all_static
+                    selected_metros = None
                 api.update_field_for_user(chat_id, selected_metros, 'metroNames')
                 api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
                 if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
