@@ -1,11 +1,11 @@
 {
   "info": {
     "ua": "ІНФОРМАЦІЯ \n\n\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Привіт! Це РУМС-бот.\u2028\u2028Я твій помічник з пошуку житла.\n\n\u2028\u2028✅ Підберу для тебе оголошення ВІД ВЛАСНИКІВ зі всіх відкритих та закритих ресурсів пошуку житла.\n\n \u2028\u2028\uD83D\uDEAB Тобі не доведеться спілкуватись з рієлторами та платити комісію за їх послуги.",
-    "en": ""
+    "en": "INFO\n\n      Hi! It’s ROMS bot-assitant. I will help you to find housing for rent or purchase in Ukraine. \n\n✅ I will hand-pick for you ads from property owners. I am using all open and closed housing search resources to increase the variety of choice for you. \n\n\uD83D\uDEAB You will avoid contacting real estate agents and paying enourmous comissions for their services."
   },
   "info2": {
     "ua": "ЯК ЦЕ ПРАЦЮЄ?\n\n✅ Декілька питань від бота допоможуть налаштувати пошук житла під твої потреби.\n\n✅ Після налаштування параметрів пошуку, ти зможеш переглянути 10 безкоштовних оголошень від власників.\n\n✅ Для отримання БЕЗЛІМІТНОЇ кількості оголошень та щоденних оновлень, можна оформити підписку на \n7 | 14 | 30 днів",
-    "en": ""
+    "en": "HOW IT WORKS\u2028\u2028✅ A few questions from the bot-assistant will help to adjust the housing search right for your needs.\n\n✅ After setting up the search parameters, you can get 5 FREE recommended options.\n\n✅ To receive UNLIMITED number of housing options and get daily updates, you can subscribe to bot. There are 3 subscription pans available:\n for 7 | 14 | 30 days."
   },
   "info3": {
     "ua": "ЯК ЦЕ ПРАЦЮЄ?\n- Ти можеш отримати 10 безкоштовних варіантів\n- Підбираю житло за твоїми параметрами",
@@ -13,87 +13,87 @@
   },
   "info_free": {
     "ua": "⚪️ Спробуй безкоштовно і отримай 10 варіантів житла, підібраних за твоїми параметрами.\n\n\u2028\u2028\uD83C\uDF1FАбо обери підписку для доступу до ВСІХ актуальних оголошень зі щоденними оновленнями.",
-    "en": ""
+    "en": "⚪️ Try the service and get 5 free housing options selected just for you. \n\n\uD83C\uDF1FOr choose a subscription to access ALL available options + daily updates on new ones."
   },
   "start_filter": {
     "ua": "\uD83D\uDD0E Що ти шукаєш?",
-    "en": ""
+    "en": "\uD83D\uDD0E What are you looking for?"
   },
   "filter_city": {
     "ua": "\uD83C\uDF07 Обери місто для пошуку",
-    "en": ""
+    "en": "\uD83C\uDF07 Choose the city"
   },
   "filter_city_error": {
     "ua": "Це місто недоступне \uD83D\uDE14 \n❗Відбувається розробка❗\nОбери місто: ",
-    "en": ""
+    "en": "This city is not available \uD83D\uDE14\nРозробDevelopment is underway❗\nChoose a city:"
   },
   "filter_price": {
     "ua": "\uD83D\uDCB0 Напиши свій бюджет",
-    "en": ""
+    "en": "\uD83D\uDCB0 Write your budget"
   },
   "filter_price_2": {
     "ua": "✏Напиши орієнтовну суму в грнивні (цифрами, без пробілів)\n\n\u2028\u2028\uD83D\uDC49️Приклад: 10000-15000\n\n\u2028\u2028*Іноді я буду показувати тобі варіанти, які перевищують бюджет в межах 10% від названої суми, адже більшість власників готові до торгу\uD83D\uDE09",
-    "en": ""
+    "en": "✏Write the approximate budget in UAH (numbers, without spaces) \n\n\u2028\u2028\uD83D\uDC49️Example: 10000-15000 \n\n\u2028\u2028*Sometimes I will show you options that exceed the budget within 10% of the specified amount. Most property owners are ready to give  a discount\uD83D\uDE09"
   },
   "filter_price_error": {
     "ua": "\uD83E\uDD14 Можливо, тут є помилка. Спробуй ввести суму ще раз цифрами, без пробілів\n\n\u2028\u2028\uD83D\uDC49️Приклад: 10000-15000",
-    "en": ""
+    "en": "\uD83E\uDD14 Here may be an error. Try entering the budget numbers again, without spaces.\n\n\u2028\uD83D\uDC49️Example: 10000-15000"
   },
   "start_registered": {
     "ua": "Вітаю, ви вже зареєстровані у боті\nПеревірити інформацію по Вам команда: /infosubscription",
-    "en": ""
+    "en": "Congratulations, you are already registered in the bot\nCheck the information on you command: /infosubscription"
   },
   "pay_good": {
-    "ua": "Оплата успішно прошла",
-    "en": ""
+    "ua": "Оплата успішно пройшла",
+    "en": "Payment successful"
   },
   "btn_pay_1": {
     "ua": "\uD83D\uDCB3 Обрати підписку",
-    "en": ""
+    "en": "\uD83D\uDCB3 Choose Subscription"
   },
   "btn_pay_2": {
     "ua": "ОПЛАТИТИ",
-    "en": ""
+    "en": "PAY"
   },
   "btn_free": {
     "ua": "\uD83C\uDD93 Спробувати безкоштовно",
-    "en": ""
+    "en": "\uD83C\uDD93 Try for Free"
   },
   "btn_back": {
     "ua": "⏪ Назад",
-    "en": ""
+    "en": "⏪ Back"
   },
   "7days": {
     "ua": "\uD83D\uDC76 7 днів – 0 грн",
-    "en": ""
+    "en": "\uD83D\uDC76 7 Days – UAH 0"
   },
   "14days": {
     "ua": "\uD83D\uDC66 14 днів - 0 грн",
-    "en": ""
+    "en": "\uD83D\uDC66 14 Days - UAH 0"
   },
   "30days": {
     "ua": "\u200D\uD83E\uDD35 30 днів - 0 грн",
-    "en": ""
+    "en": "\uD83D\uDC71\u200D\uD83E\uDD3530 Days - UAH 0"
   },
   "count_rooms": {
     "ua": "\uD83D\uDCAB  Обери кількість кімнат\n\nМожна обрати декілька варіантів, або пропустити це питання. Щоб пропустити —натисни “Не важливо”\u2028Коли закінчиш з вибором, натини “Підтвердити”",
-    "en": ""
+    "en": "\uD83D\uDCAB  Choose the number of rooms\n\nYou can choose several options, or skip this question. To skip - click \"Doesn't Matter\". When you're ready with the choice, click \"Confirm\""
   },
   "btn_start": {
     "ua": "\uD83D\uDE80️ ПОЧАТИ",
-    "en": ""
+    "en": "\uD83D\uDE80️ START"
   },
   "btn_save": {
     "ua": "Підтвердити",
-    "en": ""
+    "en": "Confirm"
   },
   "buy_1": {
     "ua": "Оплата за ",
-    "en": ""
+    "en": "Pay for "
   },
   "buy_2": {
     "ua": " днів підписки на бота",
-    "en": ""
+    "en": " days of subscriptions to the bot"
   },
   "info_user": {
     "ua": "Користувач: ",
@@ -101,11 +101,11 @@
   },
   "info_subscription": {
     "ua": "\uD83D\uDDD3 До закінчення терміну дії підписки: ",
-    "en": ""
+    "en": "\uD83D\uDDD3 Remaining days until subscription expires: "
   },
   "info_subscription_error": {
     "ua": "\uD83D\uDE22 Терміну дії підписки закінчився \n\nАБО\n\n\uD83E\uDD14 У тебе ще немає жодної оплаченої підписки",
-    "en": ""
+    "en": "\uD83D\uDE22 Subscirption is expired \n\nOR\n\n\uD83E\uDD14 You don’t have paid subscription yet"
   },
   "info_creation_date": {
     "ua": "Зареєструвався: ",
@@ -113,142 +113,142 @@
   },
   "pay_info": {
     "ua": "Оберіть тарифний план: ",
-    "en": ""
+    "en": "Choose a tariff plan: "
   },
   "btn_continue": {
     "ua": "Не важливо",
-    "en": ""
+    "en": "Doesn’t Matter"
   },
   "filter_region_msg": {
     "ua": "Обери регіони",
-    "en": ""
+    "en": "Select regions"
   },
   "filter_metro_msg": {
-    "ua": "Обери бажані станції метроОбери станції метро\n\n\u2028Можна обрати декілька варіантів, або пропустити це питання.\u2028Щоб пропустити —натисни “Не важливо”\u2028Коли заквнчиш з вибором, натини “Підтвердити”",
-    "en": ""
+    "ua": "Обери станції метро\n\n\u2028Можна обрати декілька варіантів, або пропустити це питання.\u2028Щоб пропустити —натисни “Не важливо”\u2028Коли заквнчиш з вибором, натини “Підтвердити”",
+    "en": "Choose the prefered subway station(s)\n\u2028You can choose several options, or skip this question. To skip - click \"Doesn't Matter\". When you're ready with the choice, click \"Confirm\""
   },
   "filter_tag_error_msg": {
     "ua": "Необхідно пройти по всім фільтрам хоча б 1 раз",
-    "en": ""
+    "en": "You must go through all the filters at least once."
   },
   "filter_info_text_1": {
     "ua": "Ваші фільтри \n",
-    "en": ""
+    "en": "Your filters \n"
   },
   "filter_info_text_2": {
     "ua": "Місто: ",
-    "en": ""
+    "en": "City: "
   },
   "filter_info_text_3": {
     "ua": "Тип: ",
-    "en": ""
+    "en": "Type: "
   },
   "filter_info_text_4": {
     "ua": "Ціна: ",
-    "en": ""
+    "en": "Price: "
   },
   "filter_info_text_5": {
     "ua": "Кімнат: ",
-    "en": ""
+    "en": "Rooms: "
   },
   "filter_info_text_6": {
     "ua": "Райони: ",
-    "en": ""
+    "en": "Regions: "
   },
   "filter_info_text_7": {
     "ua": "Метро: ",
-    "en": ""
+    "en": "Metro: "
   },
   "edit_filter_btn": {
     "ua": "Змінити фільтри",
-    "en": ""
+    "en": "Change filters"
   },
   "btn_filter_edit_type": {
     "ua": "\uD83D\uDDDD Тип житла",
-    "en": ""
+    "en": "\uD83D\uDDDD Property type"
   },
   "btn_filter_edit_city": {
     "ua": "\uD83C\uDF07 Місто",
-    "en": ""
+    "en": "\uD83C\uDF07 City"
   },
   "btn_filter_edit_price": {
     "ua": "\uD83D\uDCB0 Ціна",
-    "en": ""
+    "en": "\uD83D\uDCB0 Price"
   },
   "btn_filter_edit_rooms": {
     "ua": "\uD83D\uDEAA Кількість кімнат",
-    "en": ""
+    "en": "\uD83D\uDEAA Amount of Rooms"
   },
   "btn_filter_edit_location": {
     "ua": "\uD83D\uDCCD Розташування",
-    "en": ""
+    "en": "\uD83D\uDCCD Location"
   },
   "btn_filter_edit_metro": {
     "ua": "Метро",
-    "en": ""
+    "en": "Metro"
   },
   "msg_pre_pay": {
-    "ua": "Оплата проходить через надійну платіжної систему. Твої дані залишаються захищеними та конфіденційними. \n\nОплата за підписку НЕ стягується автоматично по закінченню терміну її дії.",
-    "en": ""
+    "ua": "✅ Оплата проходить через надійну платіжної систему. \n\uD83D\uDCC1Твої дані залишаються захищеними та конфіденційними. \n\nОплата за підписку \uD83D\uDEABНЕ стягується автоматично по закінченню терміну її дії.",
+    "en": "✅ Payment is proceeded through the reliable payment system. \uD83D\uDCC1Your data remains protected and confidential.\n\nThe subscription fee will\n\uD83D\uDEABNOT be charged automatically."
   },
   "msg_after_filter": {
     "ua": "\uD83C\uDF89Готово! За твоїми параметрами знайдено *** квартир, щодня з’являється 4 схожих оголошення. ",
-    "en": ""
+    "en": "\uD83C\uDF89Great! *** apartments found for your search settings, 4 similar options appear every day."
   },
   "msg_after_filter_2": {
     "ua": "Ти можеш додати вподобані варіанти в “Збереження” і контактувати з власниками квартири напряму.\n\n❣️ Всі збережені квартири можна знайти в меню. Команда “Збережені” \n(/saved) \n\nЯкщо потрібно оновити один або декілька параметрів пошуку, використовуй команду “Параметри пошуку” \n(/filters)",
-    "en": ""
+    "en": "You can add your favorite options to \"Saved\" and contact the apartment owners directly.\n\n❣️ All saved apartments can be found through the menu “Saved”  or just type the command in message window \n(/ saved)\n\nIf you want to update one or several search options, use the \"Update Settings\"  on the menue or typr the command command\n(/ filters)"
   },
   "btn_send_apartm_help": {
     "ua": "❗️Поскаржитись",
-    "en": ""
+    "en": "❗️Complain"
   },
   "msg_navigation": {
     "ua": "Навігаційна панель",
-    "en": ""
+    "en": "Navigation bar"
   },
   "btn_navigation_back": {
     "ua": "⬅️ Попередня",
-    "en": ""
+    "en": "⬅️ Previous"
   },
   "btn_navigation_next": {
     "ua": "Наступна ➡️",
-    "en": ""
+    "en": "Next ➡️"
   },
   "btn_navigation_save": {
     "ua": "❣️ Зберегти",
-    "en": ""
+    "en": "❣️ Save"
   },
   "msg_apartment_update_filters": {
     "ua": "Оновіть свої фільтри командою /filters для ефективнішого пошуку квартир",
-    "en": ""
+    "en": "Update your filters with the /filters command to efficiently search for apartments"
   },
   "msg_end_5_free_apartments": {
     "ua": "Пробні 10 варіантів завершились",
-    "en": ""
+    "en": "Trial 10 options are over"
   },
   "msg_saved_none": {
     "ua": "Збережених оголошень немає",
-    "en": ""
+    "en": "There are no saved ads."
   },
   "btn_del_save": {
     "ua": "❌ Видалити",
-    "en": ""
+    "en": "❌ Delete"
   },
   "msg_done_change_language": {
     "ua": "Ви успішно змінили мову",
-    "en": ""
+    "en": "You have successfully changed the language"
   },
   "msg_type_detal": {
     "ua": "\uD83C\uDFE1 Яке житло потрібно?",
-    "en": ""
+    "en": "\uD83C\uDFE1 What kind of housing is needed?"
   },
   "msg_infobot_1": {
     "ua": "ІНФОРМАЦІЯ\n\nРУМС-бот це твій професійний помічник з пошуку житла від власників, без комісії.",
-    "en": ""
+    "en": "INFORMATION\n\n\uD83E\uDD16 ROOMS-bot is your professional real estate assistant. Bot will find apartment from the owners, without commision. \u2028"
   },
   "msg_infobot_2": {
-    "ua": "ЯК КОРИСТУВАТИСЬ БОТОМ?\n\nТут зібрано декілька підказок, які допоможуть краще зорієнтуватись в функціях та можливостях бота.",
-    "en": ""
+    "ua": "ЯК  КОРИСТУВАТИСЬ БОТОМ?\u2028\u2028Тут зібрано декілька підказок, які допоможуть краще зорієнтуватись в функціях та можливостях бота.\n\nБот знає декілька команд. Їх можна запустити через меню, або прописавши пісдля знаку “/” в повідомленні\u2028\u2028❣️ Збережені раніше квартири в меню️ “Збережені” /saved\n\n\uD83C\uDF1FНові оголошення /new\n\n\uD83D\uDCB0 Купити підписку \n/buysubscription\n\n⚙️ Оновити налаштування пошуку, або стерти всі попередні налаштування і почати спочатку /settings\n\n\uD83D\uDCA1Викликати це меню з підказками /botinfo\n\n\uD83D\uDCB3 Переглянути інформацію про мою підписку, термін закінчення її дії \n/mysubscription\n\n\uD83D\uDC45 Змінити мову бота \n/language",
+    "en": "HOW TO USE THE BOT?\u2028\u2028Here you will find tips which will help to understand how the bot is working.\n\nBot knows a few commands. Commands can be launched via menu or by writing the needed command after the sign “/”\n\u2028❣️ The apartments saved before in menu “Saved” \n/saved\n\n\uD83C\uDF1F New apartments /new\n\n\uD83D\uDCB0 Buy subscription \n/buysubscription\n\n⚙️ Update filters or clear previous settings and start from the beginning \n/settings\n\n\uD83D\uDCA1Show this menu with tips /botinfo\n\n\uD83D\uDCB3 Check the information about my subscription, expiry date\n/mysubscription\n\n\uD83D\uDC45 Change bot language\n/language"
   }
 }

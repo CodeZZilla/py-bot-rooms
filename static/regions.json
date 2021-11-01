@@ -4,30 +4,30 @@
       {
         "id": "Святошинский",
         "ua": "Святошинский",
-        "en": "",
+        "en": "Sviatoshynskyi",
         "metros": [
           {
             "id": "Академгородок",
             "ua": "Академмістечко",
-            "en": "",
+            "en": "Akademmistechko",
             "color": "red"
           },
           {
             "id": "Житомирская",
             "ua": "Житомирська",
-            "en": "",
+            "en": "Zhytomyrska",
             "color": "red"
           },
           {
             "id": "Святошин",
             "ua": "Святошин",
-            "en": "",
+            "en": "Sviatoshyn",
             "color": "red"
           },
           {
             "id": "Нивки",
             "ua": "Нивки",
-            "en": "",
+            "en": "Nyvky",
             "color": "red"
           }
         ]
@@ -35,18 +35,18 @@
       {
         "id": "Деснянский",
         "ua": "Деснянський",
-        "en": "",
+        "en": "Desnianskyi",
         "metros": [
           {
             "id": "Черниговская",
             "ua": "Чернігівська",
-            "en": "",
+            "en": "Chernihivska",
             "color": "red"
           },
           {
             "id": "Лесная",
             "ua": "Лісна",
-            "en": "",
+            "en": "Lisova",
             "color": "red"
           }
         ]
@@ -54,30 +54,30 @@
       {
         "id": "Днепровский",
         "ua": "Дніпровський",
-        "en": "",
+        "en": "Dniprovskyi",
         "metros": [
           {
             "id": "Гидропарк",
             "ua": "Гідропарк",
-            "en": "",
+            "en": "Hydropark",
             "color": "red"
           },
           {
             "id": "Левобережная",
             "ua": "Лівобережна",
-            "en": "",
+            "en": "Livoberezhna",
             "color": "red"
           },
           {
             "id": "Дарниця",
             "ua": "Дарниця",
-            "en": "",
+            "en": "Darnytsia",
             "color": "red"
           },
           {
             "id": "Черниговская",
             "ua": "Чернігівська",
-            "en": "",
+            "en": "Chernihivska",
             "color": "red"
           }
         ]
@@ -85,7 +85,7 @@
       {
         "id": "Голосеевский",
         "ua": "Голосеевский",
-        "en": "",
+        "en": "Holosiivskyi",
         "metros": [
 
         ]
@@ -93,30 +93,30 @@
       {
         "id": "Соломенский",
         "ua": "Соломенский",
-        "en": "",
+        "en": "Solomianskyi",
         "metros": [
           {
             "id": "Берестейская",
             "ua": "Берестейська",
-            "en": "",
+            "en": "Beresteiska",
             "color": "red"
           },
           {
-            "id": "Шулявка",
-            "ua": "Шулявка",
-            "en": "",
+            "id": "Шулявская",
+            "ua": "Шулявська",
+            "en": "Shuliavska",
             "color": "red"
           },
           {
             "id": "Политехнический институт",
             "ua": "Політехнічний інститут",
-            "en": "",
+            "en": "Politekhnichnyi Instytut",
             "color": "red"
           },
           {
             "id": "Вокзальная",
             "ua": "Вокзальна",
-            "en": "",
+            "en": "Vokzalna",
             "color": "red"
           }
         ]
@@ -124,30 +124,30 @@
       {
         "id": "Оболонский",
         "ua": "Оболонский",
-        "en": "",
+        "en": "Obolonskyi",
         "metros": [
           {
             "id": "Героев Днепра",
             "ua": "Героїв Дніпра",
-            "en": "",
+            "en": "Heroiv Dnipra",
             "color": "blue"
           },
           {
             "id": "Минская",
             "ua": "Мінська",
-            "en": "",
+            "en": "Minska",
             "color": "blue"
           },
           {
             "id": "Оболонь",
             "ua": "Оболонь",
-            "en": "",
+            "en": "Obolon",
             "color": "blue"
           },
           {
             "id": "Петровка",
             "ua": "Петровка",
-            "en": "",
+            "en": "Pochaina",
             "color": "blue"
           }
         ]
@@ -155,24 +155,24 @@
       {
         "id": "Подольский",
         "ua": "Подольский",
-        "en": "",
+        "en": "Podilskyi",
         "metros": [
           {
             "id": "Тараса Шевченка",
             "ua": "Тараса Шевченка",
-            "en": "",
+            "en": "Tarasa Shevchenka",
             "color": "blue"
           },
           {
             "id": "Контрактовая площадь",
             "ua": "Контрактова площа",
-            "en": "",
+            "en": "Kontraktova Ploshcha",
             "color": "blue"
           },
           {
             "id": "Почтовая площадь",
             "ua": "Поштова площа",
-            "en": "",
+            "en": "Poshtova Ploshcha",
             "color": "blue"
           }
         ]
@@ -180,72 +180,72 @@
       {
         "id": "Печерский",
         "ua": "Печерский",
-        "en": "",
+        "en": "Pecherskyi",
         "metros": [
           {
             "id": "Крещатик",
             "ua": "Хрещатик",
-            "en": "",
+            "en": "Khreshchatyk",
             "color": "red"
           },
           {
             "id": "Арсенальная",
             "ua": "Арсенальна",
-            "en": "",
+            "en": "Arsenalna",
             "color": "red"
           },
           {
             "id": "Днепр",
             "ua": "Дніпро",
-            "en": "",
+            "en": "Dnipro",
             "color": "red"
           },
           {
             "id": "Площадь Льва Толстого",
             "ua": "Площа Льва Толстого",
-            "en": "",
+            "en": "Ploshcha Lva Tolstoho",
             "color": "blue"
           },
           {
             "id": "Олимпийская",
             "ua": "Олімпійська",
-            "en": "",
+            "en": "Olimpiiska",
             "color": "blue"
           },
           {
             "id": "Дворец Украина",
             "ua": "Палац Україна",
-            "en": "",
+            "en": "Palats Ukrayina",
             "color": "blue"
           },
           {
             "id": "Лыбедская",
             "ua": "Либідська",
-            "en": "",
+            "en": "Lybidska",
             "color": "blue"
           },
           {
             "id": "Дворец Спорта",
             "ua": "Палац Спорту",
-            "en": "",
+            "en": "Palats Sportu",
             "color": "green"
           },
           {
             "id": "Кловская",
             "ua": "Кловська",
-            "en": "",
+            "en": "Klovska",
             "color": "green"
           },
           {
             "id": "Печерская",
             "ua": "Печерська",
-            "en": "",
+            "en": "Pecherska",
             "color": "green"
           },
           {
             "id": "Дружбы Народов",
             "ua": "Дружби народів",
-            "en": "",
+            "en": "Druzhby Narodiv",
             "color": "green"
           }
         ]
@@ -253,84 +253,84 @@
       {
         "id": "Шевченковский",
         "ua": "Шевченковский",
-        "en": "",
+        "en": "Shevchenkivskyi",
         "metros": [
           {
             "id": "Нивки",
             "ua": "Нивки",
-            "en": "",
+            "en": "Nyvky",
             "color": "red"
           },
           {
             "id": "Берестейская",
             "ua": "Берестейська",
-            "en": "",
+            "en": "Beresteiska",
             "color": "red"
           },
           {
-            "id": "Шулявка",
-            "ua": "Шулявка",
-            "en": "",
+            "id": "Шулявская",
+            "ua": "Шулявська",
+            "en": "Shuliavska",
             "color": "red"
           },
           {
             "id": "Политехнический институт",
             "ua": "Політехнічний інститут",
-            "en": "",
+            "en": "Politekhnichnyi Instytut",
             "color": "red"
           },
           {
             "id": "Вокзальная",
             "ua": "Вокзальна",
-            "en": "",
+            "en": "Vokzalna",
             "color": "red"
           },
           {
             "id": "Университет",
             "ua": "Університет",
-            "en": "",
+            "en": "Universytet",
             "color": "red"
           },
           {
             "id": "Театральная",
             "ua": "Театральна",
-            "en": "",
+            "en": "Teatralna",
             "color": "red"
           },
           {
             "id": "Майдан Независимости",
             "ua": "Майдан Незалежності",
-            "en": "",
+            "en": "Maidan Nezalezhnosti",
             "color": "blue"
           },
           {
             "id": "Площадь Льва Толстого",
             "ua": "Площа Льва Толстого",
-            "en": "",
+            "en": "Ploshcha Lva Tolstoho",
             "color": "blue"
           },
           {
             "id": "Сырец",
             "ua": "Сирець",
-            "en": "",
+            "en": "Syrets",
             "color": "green"
           },
           {
             "id": "Дорогожичи",
             "ua": "Дорогожичі",
-            "en": "",
+            "en": "Dorohozhychi",
             "color": "green"
           },
           {
             "id": "Лукьяновская",
             "ua": "Лук'янівська",
-            "en": "",
+            "en": "Lukianivska",
             "color": "green"
           },
           {
             "id": "Золотые Ворота",
             "ua": "Золоті ворота",
-            "en": "",
+            "en": "Zoloti Vorota",
             "color": "green"
           }
         ]
@@ -338,42 +338,42 @@
       {
         "id": "Дарницкий",
         "ua": "Дарницький",
-        "en": "",
+        "en": "Darnytskyi",
         "metros": [
           {
             "id": "Славутич",
             "ua": "Славутич",
-            "en": "",
+            "en": "Slavutych",
             "color": "green"
           },
           {
             "id": "Осокорки",
             "ua": "Осокорки",
-            "en": "",
+            "en": "Osokorky",
             "color": "green"
           },
           {
             "id": "Позняки",
             "ua": "Позняки",
-            "en": "",
+            "en": "Pozniaky",
             "color": "green"
           },
           {
             "id": "Харьковская",
             "ua": "Харківська",
-            "en": "",
+            "en": "Kharkivska",
             "color": "green"
           },
           {
             "id": "Вырлица",
             "ua": "Вирлиця",
-            "en": "",
+            "en": "Vyrlytsia",
             "color": "green"
           },
           {
             "id": "Бориспольская",
             "ua": "Бориспільська",
-            "en": "",
+            "en": "Boryspilska",
             "color": "green"
           }
         ]

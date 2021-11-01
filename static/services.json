@@ -2,21 +2,21 @@
   {
     "id": "rent",
     "ua": "\uD83D\uDECF Оренда житла",
-    "en": ""
+    "en": "\uD83D\uDECF Rent"
   },
   {
     "id": "buy",
     "ua": "\uD83C\uDFE0 Покупка житла",
-    "en": ""
+    "en": "\uD83C\uDFE0 Purchase"
   },
   {
     "id": "rent_room",
     "ua": "\uD83D\uDEAA Кімната",
-    "en": ""
+    "en": "\uD83D\uDEAA Room"
   },
   {
     "id": "rent_apartment",
     "ua": "\uD83D\uDDDD Квартира",
-    "en": ""
+    "en": "\uD83D\uDDDD Whole place"
   }
 ]
