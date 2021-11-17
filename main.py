@@ -102,7 +102,7 @@ def language_message(message):
     language_message(chat_id)
 
 
-@bot.message_handler(commands=['offer'])
+@bot.message_handler(commands=['oferta'])
 def offer_message(message):
     bot.send_message(message.chat.id, 'https://find.roomsua.me/terms_of_use')
 
