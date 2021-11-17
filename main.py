@@ -25,7 +25,6 @@ tranzzo_token = tokens['TRANZZO_TOKEN']
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
-file_offer = open("./files/Landing page for chat bot (bonus).pdf", "rb")
 
 sticker_start = 'CAACAgUAAxkBAAP-X0qNH1rpyoDqT7odr43p9nZntwkAAm8DAALpCsgDr86-2QK6XXQbBA'
 prise_png = open('./files/animation.gif', 'rb')
@@ -105,7 +104,7 @@ def language_message(message):
 
 @bot.message_handler(commands=['offer'])
 def offer_message(message):
-    bot.send_document(message.chat.id, file_offer)
+    bot.send_message(message.chat.id, 'https://find.roomsua.me/terms_of_use')
 
 
 @bot.message_handler(commands=['infobot'])
