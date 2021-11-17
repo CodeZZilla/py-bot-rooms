@@ -32,7 +32,7 @@
     "en": "\uD83D\uDCB0 Write your budget"
   },
   "filter_price_2": {
-    "ua": "✏Напиши орієнтовну суму в грнивні (цифрами, без пробілів)\n\n\u2028\u2028\uD83D\uDC49️Приклад: 10000-15000\n\n\u2028\u2028*Іноді я буду показувати тобі варіанти, які перевищують бюджет в межах 10% від названої суми, адже більшість власників готові до торгу\uD83D\uDE09",
+    "ua": "✏Напиши орієнтовну суму в грнивнях (цифрами, без пробілів)\n\n\u2028\u2028\uD83D\uDC49️Приклад: 10000-15000\n\n\u2028\u2028*Іноді я буду показувати тобі варіанти, які перевищують бюджет в межах 10% від названої суми, адже більшість власників готові до торгу\uD83D\uDE09",
     "en": "✏Write the approximate budget in UAH (numbers, without spaces) \n\n\u2028\u2028\uD83D\uDC49️Example: 10000-15000 \n\n\u2028\u2028*Sometimes I will show you options that exceed the budget within 10% of the specified amount. Most property owners are ready to give  a discount\uD83D\uDE09"
   },
   "filter_price_error": {
@@ -188,7 +188,7 @@
     "en": "Metro"
   },
   "msg_pre_pay": {
-    "ua": "✅ Оплата проходить через надійну платіжної систему. \n\uD83D\uDCC1Твої дані залишаються захищеними та конфіденційними. \n\nОплата за підписку \uD83D\uDEABНЕ стягується автоматично по закінченню терміну її дії.",
+    "ua": "✅ Оплата проходить через надійну платіжну систему. \n\uD83D\uDCC1Твої дані залишаються захищеними та конфіденційними. \n\nОплата за підписку \uD83D\uDEABНЕ стягується автоматично по закінченню терміну її дії.",
     "en": "✅ Payment is proceeded through the reliable payment system. \uD83D\uDCC1Your data remains protected and confidential.\n\nThe subscription fee will\n\uD83D\uDEABNOT be charged automatically."
   },
   "msg_after_filter": {
