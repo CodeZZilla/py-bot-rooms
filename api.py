@@ -1,6 +1,9 @@
 import requests
 
-link = 'http://localhost:8080/api'  #95.217.184.62
+link = 'http://95.217.133.188:8080/api'  #
+
+
+admins_telegram_id = ['', '', ]
 
 
 def create_user(message):

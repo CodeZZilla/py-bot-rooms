@@ -25,7 +25,7 @@
   },
   "filter_city_error": {
     "ua": "Це місто недоступне \uD83D\uDE14 \n❗Відбувається розробка❗\nОбери місто: ",
-    "en": "This city is not available \uD83D\uDE14\nРозробDevelopment is underway❗\nChoose a city:"
+    "en": "This city is not available \uD83D\uDE14\n❗Development is underway❗\nChoose a city:"
   },
   "filter_price": {
     "ua": "\uD83D\uDCB0 Напиши свій бюджет",
@@ -322,5 +322,49 @@
   "category_card_apartament": {
     "ua": "\uD83C\uDFE0  КВАРТИРА",
     "en": "\uD83D\uDEAA  APARTMENT"
+  },
+  "phone_number_msg": {
+    "ua": "Відправити номер телефону",
+    "en": "Send telephone number"
+  },
+  "phone_number_btn": {
+    "ua": "Відправити номер",
+    "en": "Send phone"
+  },
+  "menu_new_btn_1": {
+    "ua": "\uD83D\uDCBE Збережені",
+    "en": "\uD83D\uDCBE Saved"
+  },
+  "menu_new_btn_2": {
+    "ua": "\uD83D\uDCA1 Нові оголошення",
+    "en": "\uD83D\uDCA1 New advertisement"
+  },
+  "menu_new_btn_3": {
+    "ua": "\uD83D\uDCB5 Купити підписку",
+    "en": "\uD83D\uDCB5 Buy subscription"
+  },
+  "menu_new_btn_4": {
+    "ua": "\uD83D\uDD04 Оновити параметри",
+    "en": "\uD83D\uDD04 Update settings"
+  },
+  "menu_new_btn_5": {
+    "ua": "\uD83D\uDCE3 Інформація про бот",
+    "en": "\uD83D\uDCE3 Bot-assistant info"
+  },
+  "menu_new_btn_6": {
+    "ua": "\uD83D\uDC8E Mоя підписка",
+    "en": "\uD83D\uDC8E My subscription"
+  },
+  "menu_new_btn_7": {
+    "ua": "\uD83D\uDC45 Мова",
+    "en": "\uD83D\uDC45 Language"
+  },
+  "menu_new_btn_8": {
+    "ua": "\uD83D\uDCCB Оферта",
+    "en": "\uD83D\uDCCB Oferta"
+  },
+  "main_menu_msg": {
+    "ua": "Головне меню",
+    "en": "Main menu"
   }
 }

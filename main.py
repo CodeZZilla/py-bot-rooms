@@ -10,7 +10,7 @@ import generator_telegraph
 from threading import Thread
 import schedule
 from telebot.util import async_dec
-from telebot.types import InputMediaPhoto, LabeledPrice, ShippingOption
+from telebot.types import InputMediaPhoto, LabeledPrice, ShippingOption, ReplyKeyboardMarkup, KeyboardButton
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 logging.basicConfig(filename='file.log',
@@ -24,7 +24,6 @@ TELEGRAM_TOKEN = tokens['TELEGRAM_TOKEN']
 tranzzo_token = tokens['TRANZZO_TOKEN']
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
-
 
 sticker_start = 'CAACAgUAAxkBAAP-X0qNH1rpyoDqT7odr43p9nZntwkAAm8DAALpCsgDr86-2QK6XXQbBA'
 prise_png = open('./files/animation.gif', 'rb')
@@ -97,9 +96,27 @@ def start_message(message):
 
 
 @bot.message_handler(commands=['language'])
-def language_message(message):
+def language_message_commands(message):
     chat_id = message.chat.id
     language_message(chat_id)
+
+
+@bot.message_handler(commands=['menu'])
+def menu_message(message):
+    chat_id = message.chat.id
+    user = api.get_user(chat_id)
+    keyboard_send_number = ReplyKeyboardMarkup()
+    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_1'][user['language']]),
+                             KeyboardButton(text=messages['menu_new_btn_2'][user['language']]))
+    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_3'][user['language']]),
+                             KeyboardButton(text=messages['menu_new_btn_4'][user['language']]))
+    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_5'][user['language']]),
+                             KeyboardButton(text=messages['menu_new_btn_6'][user['language']]))
+    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_7'][user['language']]),
+                             KeyboardButton(text=messages['menu_new_btn_8'][user['language']]))
+    keyboard_send_number.row(
+        KeyboardButton(text=messages['phone_number_msg'][user['language']], request_contact=True))
+    bot.send_message(chat_id, messages['main_menu_msg'][user['language']], reply_markup=keyboard_send_number)
 
 
 @bot.message_handler(commands=['oferta'])
@@ -116,7 +133,7 @@ def info_bot_message(message):
 
 
 @bot.message_handler(commands=['infosubscription'])
-def info_message(message):
+def info_message_subscription(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
     if user['daysOfSubscription'] > 0:
@@ -130,7 +147,7 @@ def info_message(message):
 
 
 @bot.message_handler(commands=['pay'])
-def info_message(message):
+def pay_message_commands(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
     pay_message(chat_id, user)
@@ -301,6 +318,7 @@ def callback_inline(call):
             inline_keyboard = InlineKeyboardMarkup()
             if value == 'next' and user['userStatus'] == status.UserStatus.NO_FILTERS.value:
                 start_next_step(chat_id, call.message.id, inline_keyboard, user['language'])
+
             elif value == 'subscription' and user['userStatus'] == status.UserStatus.NO_FILTERS.value:
                 inline_keyboard.row(
                     InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
@@ -351,8 +369,10 @@ def callback_inline(call):
             elif value == "en":
                 api.update_field_for_user(chat_id, 'en', 'language')
             user = api.get_user(chat_id)
+            menu_message(call.message)
             if user['userStatus'] == status.UserStatus.NO_FILTERS.value:
                 bot.delete_message(chat_id, call.message.id)
+
                 bot.send_message(chat_id, messages['info'][user['language']])
                 time.sleep(TIME_SLEEP)
                 keyboard_start = InlineKeyboardMarkup()
@@ -361,8 +381,6 @@ def callback_inline(call):
                 bot.send_message(chat_id, messages['info2'][user['language']], parse_mode="Markdown",
                                  reply_markup=keyboard_start)
 
-                # bot.send_message(chat_id, messages['info3'][user['language']], parse_mode="Markdown",
-                #                  reply_markup=keyboard_start)
             else:
                 bot.delete_message(chat_id, call.message.id)
                 bot.send_message(chat_id, messages['msg_done_change_language'][user['language']])
@@ -694,6 +712,26 @@ def send_text(message):
     message_text = message.text
     user = api.get_user(telegram_id)
 
+    if message_text == messages['menu_new_btn_1'][user['language']]:
+        saved_message(message)
+    elif message_text == messages['menu_new_btn_2'][user['language']]:
+        apartments_message(message)
+    elif message_text == messages['menu_new_btn_3'][user['language']]:
+        pay_message_commands(message)
+    elif message_text == messages['menu_new_btn_4'][user['language']]:
+        filters_message(message)
+    elif message_text == messages['menu_new_btn_5'][user['language']]:
+        info_bot_message(message)
+    elif message_text == messages['menu_new_btn_6'][user['language']]:
+        info_message_subscription(message)
+    elif message_text == messages['menu_new_btn_7'][user['language']]:
+        language_message_commands(message)
+    elif message_text == messages['menu_new_btn_8'][user['language']]:
+        offer_message(message)
+
+
+
+
     if user['userStatus'] == status.UserStatus.STEP_PRICE.value or \
             user['userStatus'] == status.UserStatus.EDIT_MENU.value:
         min_and_max = str(message_text).split('-')
@@ -870,6 +908,12 @@ def update_apartment_msg(id_telegram, edit, count_photos, message_id, media_phot
     bot.send_media_group(id_telegram, media_photos)
     bot.send_message(id_telegram, messages['msg_navigation'][user['language']],
                      reply_markup=navigation_keyboard)
+
+
+@bot.message_handler(content_types=['contact'])
+def contact(message):
+    if message.contact is not None:
+        api.update_field_for_user(message.contact.user_id, message.contact.phone_number, "phoneNumber")
 
 
 print('Listening....')
