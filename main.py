@@ -53,34 +53,34 @@ for item in regions_all_static:
             metros_all_static.append(metro['id'])
 
 
-def send_message_from_server():
-    data = api.get_users_messages()
-    telegram_ids = data['userTelegramId']
-    if not data['userTelegramId'] is None and not data['messageText'] is None:
-        file = open('get_users_messages')
-        if not file.read() == str(data):
-            file.close()
-            for id_item in telegram_ids:
-                try:
-                    bot.send_message(int(id_item), data['messageText'])
-                except Exception:
-                    continue
-            file_w = open("get_users_messages", "w")
-            file_w.write(str(data))
-            file_w.close()
-
-
-schedule.every(10).seconds.do(send_message_from_server)
-
-
-def async_send_message():
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-
-th = Thread(target=async_send_message)
-th.start()
+# def send_message_from_server():
+#     data = api.get_users_messages()
+#     telegram_ids = data['userTelegramId']
+#     if not data['userTelegramId'] is None and not data['messageText'] is None:
+#         file = open('get_users_messages')
+#         if not file.read() == str(data):
+#             file.close()
+#             for id_item in telegram_ids:
+#                 try:
+#                     bot.send_message(int(id_item), data['messageText'])
+#                 except Exception:
+#                     continue
+#             file_w = open("get_users_messages", "w")
+#             file_w.write(str(data))
+#             file_w.close()
+#
+#
+# schedule.every(10).seconds.do(send_message_from_server)
+#
+#
+# def async_send_message():
+#     while True:
+#         schedule.run_pending()
+#         time.sleep(1)
+#
+#
+# th = Thread(target=async_send_message)
+# th.start()
 
 
 @bot.message_handler(commands=['start'])

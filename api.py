@@ -11,7 +11,7 @@ def get_token():
         'password': "zsxadc1234"
     })
     output = req.json()
-    return output.token
+    return output['token']
 
 
 def create_user(message):
@@ -40,8 +40,10 @@ def create_user(message):
 
 
 def check_user(message):
+    auth = 'Bearer ' + get_token()
+    print(auth)
     req = requests.get(link + '/user/' + str(message.from_user.id), headers={
-        'Authorization': 'Bearer ' + get_token()
+        'Authorization': auth
     })
     if req.status_code == 404:
         return False
