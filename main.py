@@ -108,12 +108,10 @@ def menu_message(message):
     keyboard_send_number = ReplyKeyboardMarkup()
     keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_1'][user['language']]),
                              KeyboardButton(text=messages['menu_new_btn_2'][user['language']]))
-    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_3'][user['language']]),
-                             KeyboardButton(text=messages['menu_new_btn_4'][user['language']]))
-    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_5'][user['language']]),
+    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_4'][user['language']]),
+                             KeyboardButton(text=messages['menu_new_btn_5'][user['language']]))
+    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_8'][user['language']]),
                              KeyboardButton(text=messages['menu_new_btn_6'][user['language']]))
-    keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_7'][user['language']]),
-                             KeyboardButton(text=messages['menu_new_btn_8'][user['language']]))
     keyboard_send_number.row(
         KeyboardButton(text=messages['phone_number_msg'][user['language']], request_contact=True))
     bot.send_message(chat_id, messages['main_menu_msg'][user['language']], reply_markup=keyboard_send_number)
