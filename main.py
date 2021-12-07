@@ -41,7 +41,7 @@ metro_colors = {
     'green': '🟢'
 }
 shipping_options = [
-    ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 19900)),
+    # ShippingOption(id='7day', title='7 днів').add_price(LabeledPrice('7 днів', 19900)),
     ShippingOption(id='14day', title='14 днів').add_price(LabeledPrice('14 днів', 29900)),
     ShippingOption(id='30day', title='30 днів').add_price(LabeledPrice('30 днів', 49900))]
 
@@ -53,34 +53,61 @@ for item in regions_all_static:
             metros_all_static.append(metro['id'])
 
 
-# def send_message_from_server():
-#     data = api.get_users_messages()
-#     telegram_ids = data['userTelegramId']
-#     if not data['userTelegramId'] is None and not data['messageText'] is None:
-#         file = open('get_users_messages')
-#         if not file.read() == str(data):
-#             file.close()
-#             for id_item in telegram_ids:
-#                 try:
-#                     bot.send_message(int(id_item), data['messageText'])
-#                 except Exception:
-#                     continue
-#             file_w = open("get_users_messages", "w")
-#             file_w.write(str(data))
-#             file_w.close()
-#
-#
-# schedule.every(10).seconds.do(send_message_from_server)
-#
-#
-# def async_send_message():
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(1)
-#
-#
-# th = Thread(target=async_send_message)
-# th.start()
+def send_message_from_server():
+    data = api.get_users_messages()
+    telegram_ids = data['userTelegramId']
+    if not data['userTelegramId'] is None and not data['messageText'] is None:
+        file = open('get_users_messages')
+        if not file.read() == str(data):
+            file.close()
+            for id_item in telegram_ids:
+                try:
+                    bot.send_message(int(id_item), data['messageText'])
+                except Exception:
+                    continue
+            file_w = open("get_users_messages", "w")
+            file_w.write(str(data))
+            file_w.close()
+        else:
+            file.close()
+
+
+def send_messages_new_apartments():
+    users_all = api.get_all_users()
+    for user in users_all:
+        # if user['idTelegram'] == "412306507":
+        try:
+            if user['userStatus'] == status.UserStatus.YES_FILTERS.value and not user['todayCompilation'] is None:
+                if not len(user['todayCompilation']) == 0:
+                    inline_keyboard = InlineKeyboardMarkup()
+                    inline_keyboard.row(
+                        InlineKeyboardButton(text=messages['btn_ok'][user['language']],
+                                             callback_data='mailing:ok'),
+                        InlineKeyboardButton(text=messages['btn_after'][user['language']],
+                                             callback_data='mailing:after'))
+                    bot.send_message(int(user['idTelegram']),
+                                     str(messages['msg_new_apart'][user['language']]).replace("---", str(len(
+                                         user['todayCompilation']))), reply_markup=inline_keyboard)
+                else:
+                    bot.send_message(int(user['idTelegram']), messages['msg_not_apart_mailing'][user['language']])
+            else:
+                bot.send_message(int(user['idTelegram']), messages['msg_not_apart_mailing'][user['language']])
+        except Exception:
+            continue
+
+
+schedule.every(10).seconds.do(send_message_from_server)
+schedule.every().day.at("09:00").do(send_messages_new_apartments)
+
+
+def async_send_message():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+th = Thread(target=async_send_message)
+th.start()
 
 
 @bot.message_handler(commands=['start'])
@@ -119,7 +146,7 @@ def menu_message(message):
 
 @bot.message_handler(commands=['oferta'])
 def offer_message(message):
-    bot.send_message(message.chat.id, 'https://find.roomsua.me/terms_of_use')
+    bot.send_message(message.chat.id, 'https://roomsua.me/#/oferta')
 
 
 @bot.message_handler(commands=['infobot'])
@@ -318,8 +345,8 @@ def callback_inline(call):
                 start_next_step(chat_id, call.message.id, inline_keyboard, user['language'])
 
             elif value == 'subscription' and user['userStatus'] == status.UserStatus.NO_FILTERS.value:
-                inline_keyboard.row(
-                    InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
+                # inline_keyboard.row(
+                #     InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
                 inline_keyboard.row(
                     InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'))
                 inline_keyboard.row(
@@ -336,8 +363,8 @@ def callback_inline(call):
                 api.update_field_for_user(chat_id, status.UserStatus.STEP_CITY.value, "userStatus")
                 filter_city(chat_id, '', messages['filter_city'][user['language']], user['language'], True)
             elif value == 'subscription' and split_array[2] == 'infosubscription':
-                inline_keyboard.row(
-                    InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
+                # inline_keyboard.row(
+                #     InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
                 inline_keyboard.row(
                     InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'))
                 inline_keyboard.row(
@@ -348,7 +375,7 @@ def callback_inline(call):
             if value == '7':
                 amount = 19900
             elif value == '14':
-                amount = 29900
+                amount = 39900
             elif value == '30':
                 amount = 49900
             prices = [LabeledPrice(label=messages['btn_pay_2'][user['language']], amount=amount)]
@@ -511,6 +538,12 @@ def callback_inline(call):
                     keyboard[1][0].text = '✅ ' + keyboard[1][0].text
                     reply_markup.keyboard = keyboard
                     bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=reply_markup)
+        elif key == "mailing":
+            if value == "ok":
+                bot.send_message(chat_id, messages['msg_ok_mailing'][user['language']])
+                apartments_message(call.message)
+            elif value == "after":
+                bot.send_message(chat_id, messages['msg_after_mailing'][user['language']])
 
 
 @async_dec()
@@ -525,7 +558,7 @@ def language_message(chat_id):
 @async_dec()
 def pay_message(id_telegram, user):
     inline_keyboard = InlineKeyboardMarkup()
-    inline_keyboard.row(InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
+    # inline_keyboard.row(InlineKeyboardButton(text=messages['7days'][user['language']], callback_data='pay:7'))
     inline_keyboard.row(InlineKeyboardButton(text=messages['14days'][user['language']], callback_data='pay:14'))
     inline_keyboard.row(InlineKeyboardButton(text=messages['30days'][user['language']], callback_data='pay:30'))
     bot.send_message(id_telegram, messages['pay_info'][user['language']], reply_markup=inline_keyboard)
@@ -726,9 +759,6 @@ def send_text(message):
         language_message_commands(message)
     elif message_text == messages['menu_new_btn_8'][user['language']]:
         offer_message(message)
-
-
-
 
     if user['userStatus'] == status.UserStatus.STEP_PRICE.value or \
             user['userStatus'] == status.UserStatus.EDIT_MENU.value:

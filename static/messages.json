@@ -40,8 +40,8 @@
     "en": "\uD83E\uDD14 Here may be an error. Try entering the budget numbers again, without spaces.\n\n\u2028\uD83D\uDC49️Example: 10000-15000"
   },
   "start_registered": {
-    "ua": "Вітаю, ви вже зареєстровані у боті\nПеревірити інформацію по Вам команда: /infosubscription",
-    "en": "Congratulations, you are already registered in the bot\nCheck the information on you command: /infosubscription"
+    "ua": "Вітаю, ви вже зареєстровані в боті.\nВи можете перевірити інформацію по вашій підписці, вибравши команду /infosubscription",
+    "en": "Hello! You are already registered by bot.\nYou can check the information about your subscription by choosing command /infosubscription"
   },
   "pay_good": {
     "ua": "Оплата успішно пройшла",
@@ -68,12 +68,12 @@
     "en": "\uD83D\uDC76 7 Days – UAH 0"
   },
   "14days": {
-    "ua": "\uD83D\uDC66 14 днів - 0 грн",
-    "en": "\uD83D\uDC66 14 Days - UAH 0"
+    "ua": "\uD83D\uDC66 10 днів - 399 грн",
+    "en": "\uD83D\uDC66 10 Days - UAH 399"
   },
   "30days": {
-    "ua": "\u200D\uD83E\uDD35 30 днів - 0 грн",
-    "en": "\uD83D\uDC71\u200D\uD83E\uDD3530 Days - UAH 0"
+    "ua": "\u200D\uD83E\uDD35 30 днів - 499 грн",
+    "en": "\uD83D\uDC71\u200D\uD83E\uDD3530 Days - UAH 499"
   },
   "count_rooms": {
     "ua": "\uD83D\uDCAB  Обери кількість кімнат\n\nМожна обрати декілька варіантів, або пропустити це питання. Щоб пропустити —натисни “Не важливо”\u2028Коли закінчиш з вибором, натини “Підтвердити”",
@@ -337,7 +337,7 @@
   },
   "menu_new_btn_2": {
     "ua": "\uD83D\uDCA1 Нові оголошення",
-    "en": "\uD83D\uDCA1 New advertisement"
+    "en": "\uD83D\uDCA1 New offers"
   },
   "menu_new_btn_3": {
     "ua": "\uD83D\uDCB5 Купити підписку",
@@ -361,10 +361,38 @@
   },
   "menu_new_btn_8": {
     "ua": "\uD83D\uDCCB Оферта",
-    "en": "\uD83D\uDCCB Oferta"
+    "en": "\uD83D\uDCCB Proposal"
   },
   "main_menu_msg": {
     "ua": "Головне меню",
     "en": "Main menu"
+  },
+  "main_menu_msg": {
+    "ua": "Головне меню",
+    "en": "Main menu"
+  },
+  "msg_new_apart": {
+    "ua": "\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Привіт! За останюю добу з'явилося --- нових квартир за твоїми критеріями. Хочеш переглянути їх зараз?",
+    "en": "\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Hello! There are --- new offers matching your criteria. Do you wanna see them now?"
+  },
+  "btn_ok": {
+    "ua": "Так",
+    "en": "Yes"
+  },
+  "btn_after": {
+    "ua": "Пізніше",
+    "en": "Later"
+  },
+  "msg_ok_mailing": {
+    "ua": "✅ Круто! Надсилаю тобі нові оголошення.\nСтав сердечко ❤️, щоб зберегти квартири, які тобі сподобалися.\n",
+    "en": "✅ Cool! Here are new offers. Tap heart ❤️ to save favourite apartments."
+  },
+  "msg_after_mailing": {
+    "ua": "Зрозумів \uD83D\uDE09 Коли захочеш переглянути нові оголошення обери в \"меню\" розділ \"нові оголошення\".\n",
+    "en": "Got it! \uD83D\uDE09 Choose \"new offers\" in \"menu\" section when you are ready to see them."
+  },
+  "msg_not_apart_mailing": {
+    "ua": "\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Привіт! На жаль \uD83D\uDE12, за останню добу не з'явилося жодного оголошення за твоїми критеріями. \n\n1️⃣Ти можеш самостійно перевіряти нові оголошення протягом дня, обираючи в \"меню\" розділ \"нові оголошення\" \n\nабо \n\n2️⃣Почекати наступного дня і я вишлю тобі всі нові пропозиції, які з'явилися протягом доби. \n\nТільки не сумуй - ось тобі \uD83E\uDD50 круасан.\n",
+    "en": "\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Hello! Sorry\uD83D\uDE12, there are no new offers matching your criteria in the last 24 hours.\n\n1️⃣You can check for new offers during the day by selecting the \"new offers\" in the \"menu\" section.\n\nor \n\n2️⃣Wait until the next day. I will send you new offers which will appear during the 24 hours. \n\nDon't worry - eat the \uD83E\uDD50 croissant."
   }
 }

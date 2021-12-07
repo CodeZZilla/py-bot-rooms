@@ -39,9 +39,16 @@ def create_user(message):
     return req.json()
 
 
+def get_all_users():
+    auth = 'Bearer ' + get_token()
+    req = requests.get(link + '/user', headers={
+        'Authorization': auth
+    })
+    return req.json()
+
+
 def check_user(message):
     auth = 'Bearer ' + get_token()
-    print(auth)
     req = requests.get(link + '/user/' + str(message.from_user.id), headers={
         'Authorization': auth
     })
