@@ -97,7 +97,7 @@ def send_messages_new_apartments():
 
 
 schedule.every(10).seconds.do(send_message_from_server)
-schedule.every().day.at("09:00").do(send_messages_new_apartments)
+schedule.every().day.at("09:10").do(send_messages_new_apartments)
 
 
 def async_send_message():
