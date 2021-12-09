@@ -55,21 +55,15 @@ for item in regions_all_static:
 
 def send_message_from_server():
     data = api.get_users_messages()
-    telegram_ids = data['userTelegramId']
-    if not data['userTelegramId'] is None and not data['messageText'] is None:
-        file = open('get_users_messages')
-        if not file.read() == str(data):
-            file.close()
-            for id_item in telegram_ids:
-                try:
-                    bot.send_message(int(id_item), data['messageText'])
-                except Exception:
-                    continue
-            file_w = open("get_users_messages", "w")
-            file_w.write(str(data))
-            file_w.close()
-        else:
-            file.close()
+    if not data == {'id': None, 'userTelegramId': None, 'messageText': None}:
+        telegram_ids = data['userTelegramId']
+        message = data['messageText']
+        for id_item in telegram_ids:
+            try:
+                bot.send_message(int(id_item), message)
+            except Exception:
+                continue
+        api.del_users_messages()
 
 
 def send_messages_new_apartments():
@@ -113,6 +107,7 @@ th.start()
 @bot.message_handler(commands=['start'])
 def start_message(message):
     chat_id = message.chat.id
+    print(api.check_user(message))
     if api.check_user(message):
         user = api.get_user(chat_id)
         bot.send_sticker(chat_id, sticker_start)
@@ -288,13 +283,15 @@ def callback_inline(call):
                 filter_type(chat_id, messages['start_filter'][user['language']], user['language'], True,
                             call.message.id)
         elif key == "city":
-            if value == 'Киев':
+            if value == 'Киев' or value == "Одесса":
+                api.update_field_for_user(chat_id, value, "city")
                 if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
+                    api.update_field_for_user(chat_id, None, "metroNames")
+                    api.update_field_for_user(chat_id, None, "region")
                     api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, "userStatus")
                     menu_filters(chat_id, api.get_user(chat_id), True, call.message.id)
                 else:
                     api.update_field_for_user(chat_id, status.UserStatus.STEP_TYPE.value, "userStatus")
-                    api.update_field_for_user(chat_id, value, "city")
                     filter_type(chat_id, messages['start_filter'][user['language']], user['language'], True,
                                 call.message.id)
             else:
@@ -423,7 +420,14 @@ def callback_inline(call):
                 api.update_field_for_user(chat_id, selected_regions, 'region')
                 if not user['userStatus'] == status.UserStatus.EDIT_MENU.value:
                     api.update_field_for_user(chat_id, status.UserStatus.STEP_METRO.value, 'userStatus')
-                filter_metro(chat_id, call.message.id, api.get_user(chat_id), True)
+
+                if not user['city'] == "Одесса":
+                    filter_metro(chat_id, call.message.id, api.get_user(chat_id), True)
+                else:
+                    api.update_field_for_user(chat_id, None, 'metroNames')
+                    api.update_field_for_user(chat_id, status.UserStatus.YES_FILTERS.value, 'userStatus')
+                    bot.delete_message(chat_id, call.message.id)
+                    apartments_message(call.message)
             else:
                 bot.edit_message_reply_markup(chat_id, call.message.id,
                                               reply_markup=filter_multi_select(reply_markup, value))

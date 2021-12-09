@@ -3,5 +3,10 @@
     "id": "Киев",
     "ua": "\uD83D\uDCCD Київ",
     "en": "\uD83D\uDCCD Kyiv"
+  },
+  {
+    "id": "Одесса",
+    "ua": "\uD83C\uDF0A Одеса",
+    "en": "\uD83C\uDF0A Odessa"
   }
 ]

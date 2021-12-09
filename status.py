@@ -6,7 +6,7 @@ class UserStatus(Enum):
     STEP_CITY = 1
     STEP_TYPE = 2
     STEP_ROOMS = 3
-    STEP_PRICE = 3
+    STEP_PRICE = 4
     STEP_REGIONS = 5
     STEP_METRO = 6
     YES_FILTERS = 7

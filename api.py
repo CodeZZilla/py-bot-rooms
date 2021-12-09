@@ -1,6 +1,6 @@
 import requests
 
-link = 'http://localhost:8080/api'  #95.217.133.188
+link = 'http://95.217.133.188:8080/api'  # 95.217.133.188
 
 admins_telegram_id = ['412306507', '263041096']
 
@@ -48,9 +48,8 @@ def get_all_users():
 
 
 def check_user(message):
-    auth = 'Bearer ' + get_token()
     req = requests.get(link + '/user/' + str(message.from_user.id), headers={
-        'Authorization': auth
+        'Authorization': 'Bearer ' + get_token()
     })
     if req.status_code == 404:
         return False
@@ -115,4 +114,11 @@ def get_users_messages():
     req = requests.get(link + '/message/find', headers={
         'Authorization': 'Bearer ' + get_token()
     })
+    #print(req.json())
     return req.json()
+
+
+def del_users_messages():
+    requests.delete(link + '/message/deleteAll', headers={
+        'Authorization': 'Bearer ' + get_token()
+    })
