@@ -1,6 +1,6 @@
 import requests
 
-link = 'http://95.217.133.188:8080/api'  # 95.217.133.188
+link = 'http://localhost:8080/api'  # 95.217.133.188
 
 admins_telegram_id = ['412306507', '263041096']
 
