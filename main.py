@@ -192,7 +192,11 @@ def filters_message(message):
                 send_message_with_keyboard(chat_id, messages['count_rooms'][user['language']],
                                            "rooms", rooms, user['language'], True)
         elif user['userStatus'] == status.UserStatus.STEP_REGIONS.value:
-            filter_regions(chat_id, '', user['language'], user['city'], False)
+            if user['city'] is None:
+                api.update_field_for_user(chat_id, "Киев", "city")
+                filter_regions(chat_id, '', user['language'], "Киев", False)
+            else:
+                filter_regions(chat_id, '', user['language'], user['city'], False)
         elif user['userStatus'] == status.UserStatus.STEP_METRO.value:
             filter_metro(chat_id, '', api.get_user(chat_id), False)
     else:
