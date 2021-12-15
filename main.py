@@ -1,8 +1,5 @@
 import telebot
-import logging
-import sys
 import time
-import datetime
 import json
 import api
 import status
@@ -13,11 +10,6 @@ from telebot.util import async_dec
 from telebot.types import InputMediaPhoto, LabeledPrice, ShippingOption, ReplyKeyboardMarkup, KeyboardButton
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-logging.basicConfig(filename='file.log',
-                    filemode='a',
-                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                    datefmt='%H:%M:%S %D.%M.%Y',
-                    level=logging.DEBUG)
 
 tokens = json.load(open('tokens.json', encoding='utf-8'))
 TELEGRAM_TOKEN = tokens['TELEGRAM_TOKEN']
@@ -808,8 +800,6 @@ def got_payment(message):
     elif total_amount == 49900:
         api.update_field_for_user(message.chat.id, user['daysOfSubscription'] + 30, 'daysOfSubscription')
     user = api.get_user(message.chat.id)
-    logging.info(
-        f"id_telegram:{user['idTelegram']}; successful_payment:{total_amount}; date: {datetime.datetime.now()}")
     bot.send_message(message.chat.id, messages['pay_good'][user['language']], parse_mode='Markdown')
     if user['userStatus'] == status.UserStatus.NO_FILTERS.value:
         api.update_field_for_user(message.chat.id, status.UserStatus.STEP_TYPE.value, "userStatus")
@@ -960,5 +950,4 @@ while True:
     except:
         count_restarts = count_restarts + 1
         print(f'count_restarts = {count_restarts}')
-        logging.error(sys.exc_info()[0])
         time.sleep(1)
