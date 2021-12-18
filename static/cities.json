@@ -8,5 +8,10 @@
     "id": "Одесса",
     "ua": "\uD83C\uDF0A Одеса",
     "en": "\uD83C\uDF0A Odessa"
+  },
+  {
+    "id": "Харьков",
+    "ua": "\uD83C\uDFE2 Харків",
+    "en": "\uD83C\uDFE2 Kharkov"
   }
 ]

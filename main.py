@@ -283,7 +283,7 @@ def callback_inline(call):
                 filter_type(chat_id, messages['start_filter'][user['language']], user['language'], True,
                             call.message.id)
         elif key == "city":
-            if value == 'Киев' or value == "Одесса":
+            if value == 'Киев' or value == "Одесса" or value == "Харьков":
                 api.update_field_for_user(chat_id, value, "city")
                 if user['userStatus'] == status.UserStatus.EDIT_MENU.value:
                     api.update_field_for_user(chat_id, None, "metroNames")
@@ -425,7 +425,7 @@ def callback_inline(call):
                 if not user['userStatus'] == status.UserStatus.EDIT_MENU.value:
                     api.update_field_for_user(chat_id, status.UserStatus.STEP_METRO.value, 'userStatus')
 
-                if not user['city'] == "Одесса":
+                if not user['city'] == "Одесса" or not user['city'] == "Харьков":
                     filter_metro(chat_id, call.message.id, api.get_user(chat_id), True)
                 else:
                     api.update_field_for_user(chat_id, None, 'metroNames')
