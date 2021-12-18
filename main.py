@@ -10,7 +10,6 @@ from telebot.util import async_dec
 from telebot.types import InputMediaPhoto, LabeledPrice, ShippingOption, ReplyKeyboardMarkup, KeyboardButton
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-
 tokens = json.load(open('tokens.json', encoding='utf-8'))
 TELEGRAM_TOKEN = tokens['TELEGRAM_TOKEN']
 tranzzo_token = tokens['TRANZZO_TOKEN']
@@ -99,7 +98,6 @@ th.start()
 @bot.message_handler(commands=['start'])
 def start_message(message):
     chat_id = message.chat.id
-    print(api.check_user(message))
     if api.check_user(message):
         user = api.get_user(chat_id)
         bot.send_sticker(chat_id, sticker_start)
@@ -163,6 +161,12 @@ def pay_message_commands(message):
     chat_id = message.chat.id
     user = api.get_user(chat_id)
     pay_message(chat_id, user)
+
+
+@bot.message_handler(commands=['help'])
+def help_message_commands(message):
+    chat_id = message.chat.id
+    bot.send_message(chat_id, "Help: @gvrvlk")
 
 
 @bot.message_handler(commands=['filters'])
@@ -365,6 +369,7 @@ def callback_inline(call):
                 bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=inline_keyboard)
         elif key == "pay":
             amount = 0
+            print(value)
             if value == '7':
                 amount = 19900
             elif value == '14':
@@ -372,15 +377,19 @@ def callback_inline(call):
             elif value == '30':
                 amount = 49900
             prices = [LabeledPrice(label=messages['btn_pay_2'][user['language']], amount=amount)]
-            bot.send_message(chat_id, 'Тест: 4242 4242 4242 4242, cvv та дата будьякі')
+            # bot.send_message(chat_id, 'Тест: 4242 4242 4242 4242, cvv та дата будьякі')
             bot.send_message(chat_id, messages['msg_pre_pay'][user['language']])
-            bot.send_invoice(chat_id,
-                             title=messages['buy_1'][user['language']] + value + messages['buy_2'][user['language']],
-                             description='Оплата за користування ботом',
-                             provider_token=tranzzo_token,
-                             currency='UAH',
-                             prices=prices,
-                             invoice_payload='telegram_id: ' + str(chat_id) + ' prise:' + str(amount))
+            if amount == 39900:
+                bot.send_message(chat_id, "https://secure.wayforpay.com/button/bd3eedec8ba36")
+            elif amount == 49900:
+                bot.send_message(chat_id, "https://secure.wayforpay.com/button/bb36e2aa38802")
+            # bot.send_invoice(chat_id,
+            #                  title=messages['buy_1'][user['language']] + value + messages['buy_2'][user['language']],
+            #                  description='Оплата за користування ботом',
+            #                  provider_token=tranzzo_token,
+            #                  currency='UAH',
+            #                  prices=prices,
+            #                  invoice_payload='telegram_id: ' + str(chat_id) + ' prise:' + str(amount))
         elif key == "language":
             if value == "ua":
                 api.update_field_for_user(chat_id, 'ua', 'language')
@@ -390,7 +399,6 @@ def callback_inline(call):
             menu_message(call.message)
             if user['userStatus'] == status.UserStatus.NO_FILTERS.value:
                 bot.delete_message(chat_id, call.message.id)
-
                 bot.send_message(chat_id, messages['info'][user['language']])
                 time.sleep(TIME_SLEEP)
                 keyboard_start = InlineKeyboardMarkup()
@@ -795,7 +803,7 @@ def got_payment(message):
     total_amount = int(message.successful_payment.total_amount)
     if total_amount == 19900:
         api.update_field_for_user(message.chat.id, user['daysOfSubscription'] + 7, 'daysOfSubscription')
-    elif total_amount == 29900:
+    elif total_amount == 39900:
         api.update_field_for_user(message.chat.id, user['daysOfSubscription'] + 14, 'daysOfSubscription')
     elif total_amount == 49900:
         api.update_field_for_user(message.chat.id, user['daysOfSubscription'] + 30, 'daysOfSubscription')

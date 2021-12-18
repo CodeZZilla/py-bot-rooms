@@ -188,8 +188,8 @@
     "en": "Metro"
   },
   "msg_pre_pay": {
-    "ua": "✅ Оплата проходить через надійну платіжну систему. \n\uD83D\uDCC1Твої дані залишаються захищеними та конфіденційними. \n\nОплата за підписку \uD83D\uDEABНЕ стягується автоматично по закінченню терміну її дії.",
-    "en": "✅ Payment is proceeded through the reliable payment system. \uD83D\uDCC1Your data remains protected and confidential.\n\nThe subscription fee will\n\uD83D\uDEABNOT be charged automatically."
+    "ua": "✅ Оплата проходить через надійну платіжну систему. \n\uD83D\uDCC1Твої дані залишаються захищеними та конфіденційними. \n\nОплата за підписку \uD83D\uDEABНЕ стягується автоматично по закінченню терміну її дії.\n\nЯкщо не оновились дні підписки звернись до менеджеру: @gvrvlk",
+    "en": "✅ Payment is proceeded through the reliable payment system. \uD83D\uDCC1Your data remains protected and confidential.\n\nThe subscription fee will\n\uD83D\uDEABNOT be charged automatically.\n\nIf the subscription days have not been updated, contact the manager: @gvrvlk"
   },
   "msg_after_filter": {
     "ua": "\uD83C\uDF89Готово! За твоїми параметрами знайдено *** квартир, щодня з’являється 4 схожих оголошення. ",
