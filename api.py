@@ -2,7 +2,21 @@ import requests
 
 link = 'http://localhost:8080/api'  # 95.217.133.188
 
-admins_telegram_id = ['412306507', '263041096']
+admins_telegram_id = [441909209, 412306507, 263041096, 366408918]
+
+
+def is_admins(telegram_id):
+    if admins_telegram_id.__contains__(telegram_id):
+        return True
+    else:
+        return False
+
+
+def get_statistics():
+    req = requests.get(link + '/admin/dateStatistic', headers={
+        'Authorization': 'Bearer ' + get_token()
+    })
+    return req.json()
 
 
 def get_token():

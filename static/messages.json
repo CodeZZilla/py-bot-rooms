@@ -363,13 +363,29 @@
     "ua": "\uD83D\uDCCB Оферта",
     "en": "\uD83D\uDCCB Proposal"
   },
-  "main_menu_msg": {
-    "ua": "Головне меню",
-    "en": "Main menu"
+  "menu_new_btn_9": {
+    "ua": "Статистика",
+    "en": "Statistics"
   },
   "main_menu_msg": {
     "ua": "Головне меню",
     "en": "Main menu"
+  },
+  "statistics_1": {
+    "ua": "Всього в боті: ",
+    "en": "All in bots: "
+  },
+  "statistics_2": {
+    "ua": "За день: ",
+    "en": "Per day: "
+  },
+  "statistics_3": {
+    "ua": "За тиждень: ",
+    "en": "In a week: "
+  },
+  "statistics_4": {
+    "ua": "За місяць: ",
+    "en": "Per month: "
   },
   "msg_new_apart": {
     "ua": "\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Привіт! За останюю добу з'явилося --- нових квартир за твоїми критеріями. Хочеш переглянути їх зараз?",

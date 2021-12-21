@@ -126,6 +126,10 @@ def menu_message(message):
                              KeyboardButton(text=messages['menu_new_btn_6'][user['language']]))
     keyboard_send_number.row(
         KeyboardButton(text=messages['phone_number_msg'][user['language']], request_contact=True))
+
+    if api.is_admins(chat_id):
+        keyboard_send_number.row(KeyboardButton(text=messages['menu_new_btn_9'][user['language']]))
+
     bot.send_message(chat_id, messages['main_menu_msg'][user['language']], reply_markup=keyboard_send_number)
 
 
@@ -234,6 +238,17 @@ def saved_message(message):
         send_apartment(chat_id, api.find_apartment(saved_apartments_array[0])[0],
                        saved_apartments_array[len(saved_apartments_array) - 1], saved_apartments_array[1], user,
                        is_saved=True)
+
+
+@async_dec()
+def statistics_message(message):
+    chat_id = message.chat.id
+    stat = api.get_statistics()
+    user = api.get_user(chat_id)
+    bot.send_message(chat_id, f'{messages["statistics_1"][user["language"]]}{stat["allUsers"]}\n'
+                              f'{messages["statistics_2"][user["language"]]}{stat["forDay"]}\n'
+                              f'{messages["statistics_3"][user["language"]]}{stat["forWeek"]}\n'
+                              f'{messages["statistics_4"][user["language"]]}{stat["forMonth"]}')
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -750,6 +765,9 @@ def send_text(message):
     telegram_id = message.chat.id
     message_text = message.text
     user = api.get_user(telegram_id)
+
+    if message_text == messages['menu_new_btn_9'][user['language']] and api.is_admins(telegram_id):
+        statistics_message(message)
 
     if message_text == messages['menu_new_btn_1'][user['language']]:
         saved_message(message)
