@@ -394,17 +394,17 @@ def callback_inline(call):
             prices = [LabeledPrice(label=messages['btn_pay_2'][user['language']], amount=amount)]
             # bot.send_message(chat_id, 'Тест: 4242 4242 4242 4242, cvv та дата будьякі')
             bot.send_message(chat_id, messages['msg_pre_pay'][user['language']])
-            if amount == 39900:
-                bot.send_message(chat_id, "https://secure.wayforpay.com/button/bd3eedec8ba36")
-            elif amount == 49900:
-                bot.send_message(chat_id, "https://secure.wayforpay.com/button/bb36e2aa38802")
-            # bot.send_invoice(chat_id,
-            #                  title=messages['buy_1'][user['language']] + value + messages['buy_2'][user['language']],
-            #                  description='Оплата за користування ботом',
-            #                  provider_token=tranzzo_token,
-            #                  currency='UAH',
-            #                  prices=prices,
-            #                  invoice_payload='telegram_id: ' + str(chat_id) + ' prise:' + str(amount))
+            # if amount == 39900:
+            #     bot.send_message(chat_id, "https://secure.wayforpay.com/button/bd3eedec8ba36")
+            # elif amount == 49900:
+            #     bot.send_message(chat_id, "https://secure.wayforpay.com/button/bb36e2aa38802")
+            bot.send_invoice(chat_id,
+                             title=messages['buy_1'][user['language']] + value + messages['buy_2'][user['language']],
+                             description='Оплата за користування ботом',
+                             provider_token=tranzzo_token,
+                             currency='UAH',
+                             prices=prices,
+                             invoice_payload='telegram_id: ' + str(chat_id) + ' prise:' + str(amount))
         elif key == "language":
             if value == "ua":
                 api.update_field_for_user(chat_id, 'ua', 'language')
