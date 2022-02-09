@@ -410,5 +410,9 @@
   "msg_not_apart_mailing": {
     "ua": "\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Привіт! На жаль \uD83D\uDE12, за останню добу не з'явилося жодного оголошення за твоїми критеріями. \n\n1️⃣Ти можеш самостійно перевіряти нові оголошення протягом дня, обираючи в \"меню\" розділ \"нові оголошення\" \n\nабо \n\n2️⃣Почекати наступного дня і я вишлю тобі всі нові пропозиції, які з'явилися протягом доби. \n\nТільки не сумуй - ось тобі \uD83E\uDD50 круасан.\n",
     "en": "\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Hello! Sorry\uD83D\uDE12, there are no new offers matching your criteria in the last 24 hours.\n\n1️⃣You can check for new offers during the day by selecting the \"new offers\" in the \"menu\" section.\n\nor \n\n2️⃣Wait until the next day. I will send you new offers which will appear during the 24 hours. \n\nDon't worry - eat the \uD83E\uDD50 croissant."
-  }
+  },
+  "help_support": {
+      "ua": "За допомогою зверніться до телеграмм боту ROOMS SUPPORT (@rooms_ua_support_bot) \nБот нажаль підтримує лише текстові повідомлення, тому якщо більше звертайтесь відразу до менеджера @gvrvlk",
+      "en": "Refer to ROOMS SUPPORT telegrams for help (@rooms_ua_support_bot)\nUnfortunately, the bot only supports text messages, so if you do more, contact the manager @gvrvlk immediately"
+    }
 }

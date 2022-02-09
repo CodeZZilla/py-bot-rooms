@@ -1,0 +1,118 @@
+{
+  "buttons": {
+    "menu_saved": {
+      "ua": "\uD83D\uDCBE Збережені",
+      "en": "\uD83D\uDCBE Saved"
+    },
+    "menu_new_offers": {
+      "ua": "\uD83D\uDCA1 Нові оголошення",
+      "en": "\uD83D\uDCA1 New offers"
+    },
+    "menu_settings": {
+      "ua": "\uD83D\uDD04 Оновити параметри",
+      "en": "\uD83D\uDD04 Update settings"
+    },
+    "menu_info": {
+      "ua": "\uD83D\uDCE3 Інформація про бот",
+      "en": "\uD83D\uDCE3 Bot-assistant info"
+    },
+    "menu_subscription": {
+      "ua": "\uD83D\uDC8E Mоя підписка",
+      "en": "\uD83D\uDC8E My subscription"
+    },
+    "menu_proposal": {
+      "ua": "\uD83D\uDCCB Оферта",
+      "en": "\uD83D\uDCCB Proposal"
+    },
+    "menu_statistics": {
+      "ua": "Статистика",
+      "en": "Statistics"
+    },
+    "main_menu": {
+      "ua": "Головне меню \uD83D\uDC7B",
+      "en": "Main menu \uD83D\uDC7B"
+    },
+    "edit_filter": {
+      "ua": "Змінити фільтри ⚙️",
+      "en": "Change filters ⚙"
+    },
+    "phone_number": {
+      "ua": "Відправити номер \uD83D\uDCF1️",
+      "en": "Send phone number \uD83D\uDCF1️"
+    }
+  },
+  "messages": {
+    "language_communication": {
+      "ua": "\uD83C\uDFFB Обрати мову спілкування\nChoose your Language",
+      "en": "\uD83C\uDFFB Обрати мову спілкування\nChoose your Language"
+    },
+    "phone_number": {
+      "ua": "Для чудової комунікації з нашою командою, поділись з нами своїм контактом та продовжуй :)",
+      "en": "For excellent communication with our team, share your contact with us and continue :)"
+    },
+    "start_registered": {
+      "ua": "Вітаю, ви вже зареєстровані в боті.\nВи можете перевірити інформацію по вашій підписці, вибравши '\uD83D\uDC8E Mоя підписка'",
+      "en": "Hello! You are already registered by bot.\nYou can check the information about your subscription by choosing '\uD83D\uDC8E My subscription'"
+    },
+    "main_menu": {
+      "ua": "Головне меню \uD83D\uDC7B",
+      "en": "Main menu \uD83D\uDC7B"
+    },
+    "help": {
+      "ua": "За допомогою зверніться до телеграмм боту ROOMS SUPPORT (@rooms_ua_support_bot) \nБот нажаль підтримує лише текстові повідомлення, тому якщо більше звертайтесь відразу до менеджера @gvrvlk",
+      "en": "Refer to ROOMS SUPPORT telegrams for help (@rooms_ua_support_bot)\nUnfortunately, the bot only supports text messages, so if you do more, contact the manager @gvrvlk immediately"
+    },
+    "statistics_all": {
+      "ua": "Всього в боті: ",
+      "en": "All in bots: "
+    },
+    "statistics_day": {
+      "ua": "За день: ",
+      "en": "Per day: "
+    },
+    "statistics_week": {
+      "ua": "За тиждень: ",
+      "en": "In a week: "
+    },
+    "statistics_month": {
+      "ua": "За місяць: ",
+      "en": "Per month: "
+    },
+    "done_change_language": {
+      "ua": "Ви успішно змінили мову \uD83C\uDDFA\uD83C\uDDE6",
+      "en": "You have successfully changed the language \uD83C\uDDFA\uD83C\uDDF8"
+    },
+    "info": {
+      "ua": "ІНФОРМАЦІЯ \n\n\uD83D\uDE4B\uD83C\uDFFB\u200D♂️Привіт! Це РУМС-бот.\u2028\u2028Я твій помічник з пошуку житла.\n\n\u2028\u2028✅ Підберу для тебе оголошення ВІД ВЛАСНИКІВ зі всіх відкритих та закритих ресурсів пошуку житла.\n\n \u2028\u2028\uD83D\uDEAB Тобі не доведеться спілкуватись з рієлторами та платити комісію за їх послуги.",
+      "en": "INFO\n\n   Hi! It’s ROMS bot-assitant. I will help you to find housing for rent or purchase in Ukraine. \n\n✅ I will hand-pick for you ads from property owners. I am using all open and closed housing search resources to increase the variety of choice for you. \n\n\uD83D\uDEAB You will avoid contacting real estate agents and paying enourmous comissions for their services."
+    },
+    "filters_title": {
+      "ua": "Ваші фільтри \n",
+      "en": "Your filters \n"
+    },
+    "filter_city": {
+      "ua": "Місто: ",
+      "en": "City: "
+    },
+    "filter_type": {
+      "ua": "Тип: ",
+      "en": "Type: "
+    },
+    "filter_price": {
+      "ua": "Ціна: ",
+      "en": "Price: "
+    },
+    "filter_rooms": {
+      "ua": "Кімнат: ",
+      "en": "Rooms: "
+    },
+    "filter_regions": {
+      "ua": "Райони: ",
+      "en": "Regions: "
+    },
+    "filter_metro": {
+      "ua": "Метро: ",
+      "en": "Metro: "
+    }
+  }
+}

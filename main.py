@@ -17,7 +17,7 @@ tranzzo_token = tokens['TRANZZO_TOKEN']
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 sticker_start = 'CAACAgUAAxkBAAP-X0qNH1rpyoDqT7odr43p9nZntwkAAm8DAALpCsgDr86-2QK6XXQbBA'
-prise_png = open('./files/animation.gif', 'rb')
+# prise_png = open('./files/animation.gif', 'rb')
 
 messages = json.load(open('./static/messages.json', encoding='utf-8'))
 cities = json.load(open('./static/cities.json', encoding='utf-8'))
@@ -42,57 +42,6 @@ for item in regions_all_static:
     for metro in item['metros']:
         if not metros_all_static.__contains__(metro):
             metros_all_static.append(metro['id'])
-
-
-def send_message_from_server():
-    data = api.get_users_messages()
-    if not data == {'id': None, 'userTelegramId': None, 'messageText': None}:
-        telegram_ids = data['userTelegramId']
-        message = data['messageText']
-        for id_item in telegram_ids:
-            try:
-                bot.send_message(int(id_item), message)
-            except Exception:
-                continue
-        api.del_users_messages()
-
-
-def send_messages_new_apartments():
-    users_all = api.get_all_users()
-    for user in users_all:
-        # if user['idTelegram'] == "412306507":
-        try:
-            if user['userStatus'] == status.UserStatus.YES_FILTERS.value and not user['todayCompilation'] is None:
-                if not len(user['todayCompilation']) == 0:
-                    inline_keyboard = InlineKeyboardMarkup()
-                    inline_keyboard.row(
-                        InlineKeyboardButton(text=messages['btn_ok'][user['language']],
-                                             callback_data='mailing:ok'),
-                        InlineKeyboardButton(text=messages['btn_after'][user['language']],
-                                             callback_data='mailing:after'))
-                    bot.send_message(int(user['idTelegram']),
-                                     str(messages['msg_new_apart'][user['language']]).replace("---", str(len(
-                                         user['todayCompilation']))), reply_markup=inline_keyboard)
-                else:
-                    bot.send_message(int(user['idTelegram']), messages['msg_not_apart_mailing'][user['language']])
-            else:
-                bot.send_message(int(user['idTelegram']), messages['msg_not_apart_mailing'][user['language']])
-        except Exception:
-            continue
-
-
-schedule.every(10).seconds.do(send_message_from_server)
-schedule.every().day.at("09:15").do(send_messages_new_apartments)
-
-
-def async_send_message():
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-
-th = Thread(target=async_send_message)
-th.start()
 
 
 @bot.message_handler(commands=['start'])
@@ -170,7 +119,8 @@ def pay_message_commands(message):
 @bot.message_handler(commands=['help'])
 def help_message_commands(message):
     chat_id = message.chat.id
-    bot.send_message(chat_id, "Help: @gvrvlk")
+    user = api.get_user(chat_id)
+    bot.send_message(chat_id, messages['help_support'][user['language']])
 
 
 @bot.message_handler(commands=['filters'])
@@ -213,15 +163,16 @@ def apartments_message(message):
     else:
         bot.send_message(chat_id, messages['msg_after_filter'][user['language']].replace('***', str(
             len(user['todayCompilation']))))
-        time.sleep(TIME_SLEEP)
         bot.send_message(chat_id, messages['msg_after_filter_2'][user['language']])
-        time.sleep(TIME_SLEEP)
-        if len(today_compilation_array) == 1:
-            send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
-                           today_compilation_array[0], today_compilation_array[0], user)
-        else:
-            send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
-                           today_compilation_array[len(today_compilation_array) - 1], today_compilation_array[1], user)
+
+        send_apartment_V2(chat_id, 0)
+        # if len(today_compilation_array) == 1:
+        #     send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
+        #                    today_compilation_array[0], today_compilation_array[0], user)
+        # else:
+        #     send_apartment(chat_id, api.find_apartment(today_compilation_array[0])[0],
+        #                    today_compilation_array[len(today_compilation_array) - 1], today_compilation_array[1], user,
+        #                    next_index=1, back_index=(len(today_compilation_array) - 1))
 
 
 @bot.message_handler(commands=['saved'])
@@ -231,13 +182,15 @@ def saved_message(message):
     saved_apartments_array = user['savedApartments']
     if len(saved_apartments_array) == 0:
         bot.send_message(chat_id, messages['msg_saved_none'][user['language']])
-    elif len(saved_apartments_array) == 1:
-        send_apartment(chat_id, api.find_apartment(saved_apartments_array[0])[0],
-                       saved_apartments_array[0], saved_apartments_array[0], user, is_saved=True)
     else:
-        send_apartment(chat_id, api.find_apartment(saved_apartments_array[0])[0],
-                       saved_apartments_array[len(saved_apartments_array) - 1], saved_apartments_array[1], user,
-                       is_saved=True)
+        send_apartment_V2(chat_id, 0, is_saved=True)
+    # elif len(saved_apartments_array) == 1:
+    #     send_apartment(chat_id, api.find_apartment(saved_apartments_array[0])[0],
+    #                    saved_apartments_array[0], saved_apartments_array[0], user, is_saved=True)
+    # else:
+    #     send_apartment(chat_id, api.find_apartment(saved_apartments_array[0])[0],
+    #                    saved_apartments_array[len(saved_apartments_array) - 1], saved_apartments_array[1], user,
+    #                    is_saved=True, next_index=1, back_index=(len(saved_apartments_array) - 1))
 
 
 @async_dec()
@@ -440,7 +393,7 @@ def callback_inline(call):
                 if not user['userStatus'] == status.UserStatus.EDIT_MENU.value:
                     api.update_field_for_user(chat_id, status.UserStatus.STEP_METRO.value, 'userStatus')
 
-                if not user['city'] == "Одесса" or not user['city'] == "Харьков":
+                if user['city'] == "Киев":
                     filter_metro(chat_id, call.message.id, api.get_user(chat_id), True)
                 else:
                     api.update_field_for_user(chat_id, None, 'metroNames')
@@ -506,61 +459,98 @@ def callback_inline(call):
             elif value == 'location':
                 api.update_field_for_user(chat_id, status.UserStatus.EDIT_MENU.value, "userStatus")
                 filter_regions(chat_id, call.message.id, user['language'], user['city'], True)
-        elif key == "navigation" or key == "navigation_save":
+        # elif key == "navigation" or key == "navigation_save":
+        #     if not value == "save":
+        #         array = []
+        #         if key == "navigation":
+        #             array = user['todayCompilation']
+        #         else:
+        #             array = user['savedApartments']
+        #
+        #         if not len(array) == 0:
+        #             index_value = array.index(int(value))
+        #             print(f'index_value = {index_value}')
+        #             next_index = 0
+        #             back_index = 0
+        #             if len(array) >= 2:
+        #                 if index_value == 0:
+        #                     next_index = 1
+        #                     back_index = len(array) - 1
+        #                 elif index_value == len(array) - 1:
+        #                     next_index = 0
+        #                     back_index = len(array) - 2
+        #                 else:
+        #                     next_index = index_value + 1
+        #                     back_index = index_value - 1
+        #             elif len(array) == 1:
+        #                 next_index = 0
+        #                 back_index = 0
+        #             apartment_obj = api.find_apartment(value)[0]
+        #             if key == "navigation":
+        #                 print(f'apartment_obj={apartment_obj}')
+        #                 send_apartment(chat_id, apartment_obj, array[back_index],
+        #                                array[next_index], user, call.message.id, True,
+        #                                int(split_array[2]), next_index=next_index, back_index=back_index)
+        #             else:
+        #                 if len(user['savedApartments']) == 0:
+        #                     bot.send_message(chat_id, messages['msg_saved_none'][user['language']])
+        #                 else:
+        #                     send_apartment(chat_id, apartment_obj, array[back_index],
+        #                                    array[next_index], user, call.message.id, True,
+        #                                    int(split_array[2]), True, next_index=next_index, back_index=back_index)
+        #         else:
+        #             for i in range(int(split_array[2]) + 1):
+        #                 bot.delete_message(chat_id, call.message.id - i)
+        #     else:
+        #         saved_apartments_array = user['savedApartments']
+        #         if key == "navigation":
+        #             if not saved_apartments_array.__contains__(int(split_array[2])):
+        #                 saved_apartments_array.append(int(split_array[2]))
+        #         else:
+        #             if saved_apartments_array.__contains__(int(split_array[2])):
+        #                 saved_apartments_array.remove(int(split_array[2]))
+        #         api.update_field_for_user(chat_id, saved_apartments_array, 'savedApartments')
+        #         reply_markup = call.message.reply_markup
+        #         keyboard = reply_markup.keyboard
+        #         if not '✅ ' in keyboard[1][0].text:
+        #             keyboard[1][0].text = '✅ ' + keyboard[1][0].text
+        #             reply_markup.keyboard = keyboard
+        #             bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=reply_markup)
+        elif key == "navigation_V2" or key == "navigation_save_V2":
+            array = user['todayCompilation'] if key == "navigation_V2" else user['savedApartments']
             if not value == "save":
-                array = []
-                if key == "navigation":
-                    array = user['todayCompilation']
+                if len(array) == 0:
+                    bot.delete_message(chat_id, call.message.id)
+                    # for i in range(int(split_array[2]) + 1):
+                    #     bot.delete_message(chat_id, call.message.id - i)
+                    bot.send_message(chat_id, "Список квартир які задовольняють твоїм фільтрам закінчився!\n"
+                                              "Заходь завтра або онови фільтри")
                 else:
-                    array = user['savedApartments']
+                    index = split_array[1]
 
-                if not len(array) == 0:
-                    index_value = array.index(int(value))
-                    next_index = 0
-                    back_index = 0
-                    if len(array) >= 2:
-                        if index_value == 0:
-                            next_index = 1
-                            back_index = len(array) - 1
-                        elif index_value == len(array) - 1:
-                            next_index = 0
-                            back_index = len(array) - 2
-                        else:
-                            next_index = index_value + 1
-                            back_index = index_value - 1
-                    elif len(array) == 1:
-                        next_index = 0
-                        back_index = 0
-                    apartment_obj = api.find_apartment(value)[0]
-                    if key == "navigation":
-                        send_apartment(chat_id, apartment_obj, array[back_index],
-                                       array[next_index], user, call.message.id, True,
-                                       int(split_array[2]))
+                    if key == "navigation_V2":
+                        send_apartment_V2(chat_id, index, call.message.id, True)
                     else:
-                        if len(user['savedApartments']) == 0:
-                            bot.send_message(chat_id, messages['msg_saved_none'][user['language']])
-                        else:
-                            send_apartment(chat_id, apartment_obj, array[back_index],
-                                           array[next_index], user, call.message.id, True,
-                                           int(split_array[2]), True)
-                else:
-                    for i in range(int(split_array[2]) + 1):
-                        bot.delete_message(chat_id, call.message.id - i)
+                        send_apartment_V2(chat_id, index, call.message.id, True, True)
             else:
                 saved_apartments_array = user['savedApartments']
-                if key == "navigation":
-                    if not saved_apartments_array.__contains__(int(split_array[2])):
-                        saved_apartments_array.append(int(split_array[2]))
+                if key == "navigation_V2":
+                    if not saved_apartments_array.__contains__(array[int(split_array[2])]):
+                        saved_apartments_array.append(array[int(split_array[2])])
                 else:
-                    if saved_apartments_array.__contains__(int(split_array[2])):
-                        saved_apartments_array.remove(int(split_array[2]))
+                    if saved_apartments_array.__contains__(array[int(split_array[2])]):
+                        saved_apartments_array.remove(array[int(split_array[2])])
                 api.update_field_for_user(chat_id, saved_apartments_array, 'savedApartments')
-                reply_markup = call.message.reply_markup
-                keyboard = reply_markup.keyboard
-                if not '✅ ' in keyboard[1][0].text:
-                    keyboard[1][0].text = '✅ ' + keyboard[1][0].text
-                    reply_markup.keyboard = keyboard
-                    bot.edit_message_reply_markup(chat_id, call.message.id, reply_markup=reply_markup)
+
+                if not int(split_array[3]) == -1:
+                    if key == "navigation_V2":
+                        send_apartment_V2(chat_id, int(split_array[3]), call.message.id, True)
+                    else:
+                        send_apartment_V2(chat_id, int(split_array[3]), call.message.id, True, True)
+                else:
+                    bot.delete_message(chat_id, call.message.id)
+                    bot.send_message(chat_id, "Збережених квартир немає 😉")
+
         elif key == "mailing":
             if value == "ok":
                 bot.send_message(chat_id, messages['msg_ok_mailing'][user['language']])
@@ -687,13 +677,8 @@ def filter_city(id_telegram, message_id, text, language, new_msg=False):
 
 
 def filter_price(id_telegram, message_id, language, new_message):
-    # if not new_message:
-    #     bot.delete_message(id_telegram, message_id)
-    #     bot.send_animation(id_telegram, prise_png, None, messages['filter_price'][language])
-    # else:
     bot.send_message(id_telegram, messages['filter_price'][language])
     bot.send_message(id_telegram, messages['filter_price_2'][language])
-    # bot.send_animation(id_telegram, prise_png, None, messages['filter_price'][language])
 
 
 @async_dec()
@@ -852,18 +837,44 @@ def send_message_with_keyboard(id_telegram, text, call_back_start, array_text, l
 
 
 @async_dec()
-def send_apartment(id_telegram, apartment_object, back_id, next_id, user, message_id=None, edit=False,
-                   count_photos=None, is_saved=False):
-    media_photos = []
-    if apartment_object['images'] is None:
-        empty_photo = open('./files/empty_photo.jpg', 'rb')
-        media_photos.append(InputMediaPhoto(empty_photo))
+def send_apartment_V2(chat_id, current_index, message_id=None, edit=False, is_saved=False):
+    current_index = int(current_index)
+    # print(f'chat_id={chat_id}\ncurrent_index={current_index}\nmessage_id={message_id}\nedit={edit}\n'
+    #       f'count_photos={count_photos}\nis_saved={is_saved}')
+    user = api.get_user(chat_id)
+    array = []
+    navigation = 'navigation_V2'
+    text_save_btn = messages['btn_navigation_save'][user['language']]
+    if is_saved:
+        navigation = 'navigation_save_V2'
+        text_save_btn = messages['btn_del_save'][user['language']]
+        array = user['savedApartments']
     else:
-        for i in range(len(apartment_object['images'])):
-            if i < 5:
-                media_photos.append(InputMediaPhoto(str(apartment_object['images'][i])))
-            else:
-                break
+        array = user['todayCompilation']
+
+    # print(f'array={array}')
+
+    # print(f'apartment_object={apartment_object}')
+
+
+    # media_photos = []
+    # if apartment_object['images'] is None:
+    #     empty_photo = open('./files/empty_photo.jpg', 'rb')
+    #     media_photos.append(InputMediaPhoto(empty_photo))
+    # else:
+    #     for i in range(len(apartment_object['images'])):
+    #         if i < 5:
+    #             media_photos.append(InputMediaPhoto(str(apartment_object['images'][i])))
+    #         else:
+    #             break
+
+
+    # media_photos[0].parse_mode = 'Markdown'
+    # media_photos[0].caption = \
+    #     f'{category + price + location + metro_room + sub_location_name + count_rooms + area + floor}' \
+    #     f'👉[{messages["link_details"][user["language"]]}]({url_details})👈'
+
+    apartment_object = api.find_apartment(array[current_index])[0]
 
     category = messages["category_card_none"][user["language"]]
     if not apartment_object['category'] is None:
@@ -912,54 +923,117 @@ def send_apartment(id_telegram, apartment_object, back_id, next_id, user, messag
 
     url_details = generator_telegraph.get_url_by_id_apartment(apartment_object["internalId"])
 
-    media_photos[0].parse_mode = 'Markdown'
-    media_photos[
-        0].caption = f'{category + price + location + metro_room + sub_location_name + count_rooms + area + floor}' \
-                     f'👉[{messages["link_details"][user["language"]]}]({url_details})👈'
-
-    navigation = 'navigation'
-    text_save_btn = messages['btn_navigation_save'][user['language']]
-    if is_saved:
-        navigation = 'navigation_save'
-        text_save_btn = messages['btn_del_save'][user['language']]
+    text_send = f'{category + price + location + metro_room + sub_location_name + count_rooms + area + floor}' \
+                f'👉[{messages["link_details"][user["language"]]}]({url_details})👈'
 
     navigation_keyboard = InlineKeyboardMarkup()
-    navigation_keyboard.row(InlineKeyboardButton(
-        text=messages['btn_navigation_back'][user['language']],
-        callback_data=f'{navigation}:{str(back_id)}:{str(len(media_photos))}'),
-        InlineKeyboardButton(
-            text=messages['btn_navigation_next'][user['language']],
-            callback_data=f'{navigation}:{str(next_id)}:{str(len(media_photos))}'))
-    navigation_keyboard.row(InlineKeyboardButton(
-        text=text_save_btn,
-        callback_data=f'{navigation}:save:{str(apartment_object["internalId"])}'),
-        InlineKeyboardButton(
-            text=messages['btn_send_apartm_help'][user['language']],
-            callback_data=f'{navigation}:help:{str(apartment_object["internalId"])}')
-    )
+    if len(array) == 1:
+        navigation_keyboard.row(
+            InlineKeyboardButton(text=text_save_btn,
+                                 callback_data=f'{navigation}:save:{current_index}:{-1}'))
+    else:
+        if current_index == 0:
+            navigation_keyboard.row(InlineKeyboardButton(
+                text=messages['btn_navigation_next'][user['language']],
+                callback_data=f'{navigation}:{current_index + 1}'))
+            navigation_keyboard.row(InlineKeyboardButton(
+                text=text_save_btn,
+                callback_data=f'{navigation}:save:{current_index}:{current_index + 1}'))
+        elif current_index == (len(array) - 1):
+            navigation_keyboard.row(
+                InlineKeyboardButton(
+                    text=messages['btn_navigation_back'][user['language']],
+                    callback_data=f'{navigation}:{current_index - 1}'))
+            navigation_keyboard.row(InlineKeyboardButton(
+                text=text_save_btn,
+                callback_data=f'{navigation}:save:{current_index}:{current_index - 1}'))
+        else:
+            navigation_keyboard.row(
+                InlineKeyboardButton(
+                    text=messages['btn_navigation_back'][user['language']],
+                    callback_data=f'{navigation}:{current_index - 1}'),
+                InlineKeyboardButton(
+                    text=messages['btn_navigation_next'][user['language']],
+                    callback_data=f'{navigation}:{current_index + 1}'))
+            navigation_keyboard.row(InlineKeyboardButton(
+                text=text_save_btn,
+                callback_data=f'{navigation}:save:{current_index}:{current_index + 1}'))
 
     if user['daysOfSubscription'] > 0:
-        update_apartment_msg(id_telegram, edit, count_photos, message_id, media_photos, user, navigation_keyboard)
+        update_apartment_msg(chat_id, edit, message_id, navigation_keyboard, text_send)
     else:
         if user['freeCounterSearch'] > 0:
-            api.update_field_for_user(id_telegram, user['freeCounterSearch'] - 1, 'freeCounterSearch')
-            update_apartment_msg(id_telegram, edit, count_photos, message_id, media_photos, user, navigation_keyboard)
+            api.update_field_for_user(chat_id, user['freeCounterSearch'] - 1, 'freeCounterSearch')
+            update_apartment_msg(chat_id, edit, message_id, navigation_keyboard, text_send)
         else:
             if edit:
-                for i in range(count_photos + 1):
-                    bot.delete_message(id_telegram, message_id - i)
-            bot.send_message(id_telegram, messages['msg_end_5_free_apartments'][user['language']])
-            pay_message(id_telegram, user)
+                bot.delete_message(chat_id, message_id)
+                # for i in range(count_photos + 1):
+                #     bot.delete_message(chat_id, message_id - i)
+            bot.send_message(chat_id, messages['msg_end_5_free_apartments'][user['language']])
+            pay_message(chat_id, user)
+
+
+# @async_dec()
+# def send_apartment(id_telegram, apartment_object, back_id, next_id, user, message_id=None, edit=False,
+#                    count_photos=None, is_saved=False, back_index=0, next_index=0):
+#     media_photos = output_apartment(user, apartment_object)
+#     navigation = 'navigation'
+#     text_save_btn = messages['btn_navigation_save'][user['language']]
+#     if is_saved:
+#         navigation = 'navigation_save'
+#         text_save_btn = messages['btn_del_save'][user['language']]
+#
+#     navigation_keyboard = InlineKeyboardMarkup()
+#
+#     print(f"({back_index}, {next_index})")
+#     if next_index == 0 and back_index == 0:
+#         navigation_keyboard.row(InlineKeyboardButton(
+#             text=text_save_btn,
+#             callback_data=f'{navigation}:save:{str(apartment_object["internalId"])}'))
+#     else:
+#         if next_index == 1:
+#             navigation_keyboard.row(InlineKeyboardButton(
+#                 text=messages['btn_navigation_next'][user['language']],
+#                 callback_data=f'{navigation}:{str(next_id)}:{str(len(media_photos))}'))
+#         elif next_index == 0:
+#             navigation_keyboard.row(InlineKeyboardButton(
+#                 text=messages['btn_navigation_back'][user['language']],
+#                 callback_data=f'{navigation}:{str(back_id)}:{str(len(media_photos))}'))
+#         else:
+#             navigation_keyboard.row(
+#                 InlineKeyboardButton(text=messages['btn_navigation_back'][user['language']],
+#                                      callback_data=f'{navigation}:{str(back_id)}:{str(len(media_photos))}'),
+#                 InlineKeyboardButton(text=messages['btn_navigation_next'][user['language']],
+#                                      callback_data=f'{navigation}:{str(next_id)}:{str(len(media_photos))}'))
+#         navigation_keyboard.row(
+#             InlineKeyboardButton(text=text_save_btn,
+#                                  callback_data=f'{navigation}:save:{str(apartment_object["internalId"])}'))
+#
+#     if user['daysOfSubscription'] > 0:
+#         update_apartment_msg(id_telegram, edit, count_photos, message_id, media_photos, user, navigation_keyboard)
+#     else:
+#         if user['freeCounterSearch'] > 0:
+#             api.update_field_for_user(id_telegram, user['freeCounterSearch'] - 1, 'freeCounterSearch')
+#             update_apartment_msg(id_telegram, edit, count_photos, message_id, media_photos, user, navigation_keyboard)
+#         else:
+#             if edit:
+#                 for i in range(count_photos + 1):
+#                     bot.delete_message(id_telegram, message_id - i)
+#             bot.send_message(id_telegram, messages['msg_end_5_free_apartments'][user['language']])
+#             pay_message(id_telegram, user)
 
 
 @async_dec()
-def update_apartment_msg(id_telegram, edit, count_photos, message_id, media_photos, user, navigation_keyboard):
+def update_apartment_msg(id_telegram, edit, message_id, navigation_keyboard, text_send):
     if edit:
-        for i in range(count_photos + 1):
-            bot.delete_message(id_telegram, message_id - i)
-    bot.send_media_group(id_telegram, media_photos)
-    bot.send_message(id_telegram, messages['msg_navigation'][user['language']],
-                     reply_markup=navigation_keyboard)
+        bot.delete_message(id_telegram, message_id)
+        # for i in range(int(count_photos) + 1):
+        #     bot.delete_message(id_telegram, message_id - i)
+
+    # bot.send_media_group(id_telegram, media_photos)
+    # messages['msg_navigation'][user['language']]
+    bot.send_message(id_telegram, text_send, reply_markup=navigation_keyboard, parse_mode='Markdown')
 
 
 @bot.message_handler(content_types=['contact'])
@@ -973,7 +1047,7 @@ count_restarts = 0
 while True:
     try:
         bot.polling(none_stop=True)
-    except:
+    except Exception as error:
         count_restarts = count_restarts + 1
-        print(f'count_restarts = {count_restarts}')
+        print(f'count_restarts = {count_restarts} ({error})')
         time.sleep(1)
